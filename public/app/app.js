@@ -1,28 +1,17 @@
 (function ()
 {
-	class App extends HTMLElement
+	const App =
 	{
-		constructor()
-		{
-			super();
+		init,
+	};
 
-			// Attach a shadow root to the element.
-			this._shadowRoot = this.attachShadow({ mode: 'open' });
+	function init()
+	{
+		console.log( 'App#init' );
 
-			this._shadowRoot.innerHTML = `
-				<link rel="stylesheet" href="js/app/app.css">
-				<nando-universe></nando-universe>
-				<slot></slot>
-			`;
-
-			Nando.Cargador.trae( 'universe' );
-		}
-
-		connectedCallback()
-		{
-			console.log( 'Hola desde App' );
-		}
+		Nando.load({ module: 'table' })
+			.then(() => Nando.table.init() );
 	}
 
-	customElements.define( 'nando-app', App );
+	Object.assign( Nando, { app: App });
 })();

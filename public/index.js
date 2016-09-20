@@ -12,35 +12,39 @@ function $$( selector, context )
 
 window.Nando = (function ()
 {
-	if ('customElements' in window === false)
-	{
-		const $head   = $( 'head' );
-		const $script = document.createElement( 'script' );
-		$script.src   = '/vendor/CustomElementsV1.min.js';
-
-		$script.addEventListener( 'load', () => 
-		{
-			$( 'body' ).dispatchEvent( new CustomEvent( 'customElementsEnabled' ));
-			$head.removeChild( $script );
-		}, { once: true });
-
-		$head.appendChild( $script );
-	}
-	else main();
-
 	window.addEventListener( 'DOMContentLoaded', () =>
 	{
-		$( 'body' ).addEventListener( 'customElementsEnabled', main, { once: true });
+		main();
 	}, { once: true });
-
+	
 	function main()
 	{
-		console.log( 'custom elements enabled' )
+		load({ module: 'app' })
+			.then(() =>
+			{
+				Nando.app.init();
+			});
 	}
 
-	function load( component )
+	function load({ module })
 	{
-		// TODO: continue here
+		if (!!Nando[ module ])
+			return Promise.resolve();
+
+		return new Promise( resolve =>
+		{
+			const $head   = $( 'head' );
+			const $script = document.createElement( 'script' );
+			$script.src   = `/${ module }/${ module }.js`;
+
+			$script.addEventListener( 'load', () => 
+			{
+				$head.removeChild( $script );
+				resolve();
+			}, { once: true });
+
+			$head.appendChild( $script );
+		});
 	}
 
 	const Nando =
