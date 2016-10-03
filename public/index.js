@@ -12,10 +12,7 @@ function $$( selector, context )
 
 window.Nando = (function ()
 {
-	window.addEventListener( 'DOMContentLoaded', () =>
-	{
-		main();
-	}, { once: true });
+	window.addEventListener( 'DOMContentLoaded', main, { once: true });
 	
 	function main()
 	{
@@ -26,16 +23,27 @@ window.Nando = (function ()
 			});
 	}
 
-	function load({ module })
+	function load({ module = null, path = null })
 	{
-		if (!!Nando[ module ])
-			return Promise.resolve();
+		let scriptSource = '';
+
+		if (path)
+			scriptSource = path + '.js';
+
+		else if (module)
+		{
+			if (!!Nando[ module ])
+				return Promise.resolve();
+
+			else scriptSource = `/${ module }/${ module }.js`; 
+		}
+		else return Promise.reject( 'I do not have a path or module to work with' );
 
 		return new Promise( resolve =>
 		{
 			const $head   = $( 'head' );
 			const $script = document.createElement( 'script' );
-			$script.src   = `/${ module }/${ module }.js`;
+			$script.src   = scriptSource;
 
 			$script.addEventListener( 'load', () => 
 			{
