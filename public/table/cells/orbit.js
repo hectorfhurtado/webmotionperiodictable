@@ -21,9 +21,10 @@
 		`
 		${ insertStyles() }
 		<div class="Cell_canvas">
-			<div class="Orbit_outer_circle" style="height: ${ width * 0.6 }px;">
-				<div class="Orbit_inner_circle">
-				</div>
+			<div 
+				class="Orbit_outer_circle" 
+				style="height: ${ width * 0.6 }px; width: ${ width * 0.6 }px;"
+			>
 			</div>
 		</div>
 		<h2>Orbit</h2>
@@ -48,16 +49,19 @@
 				bottom:        0.125rem;
 				left:          0;
 				right:         0;
+				user-select:   none;
 			}
 
-			.Orbit_inner_circle
+			.Orbit_outer_circle:after
 			{
+				content:          '';
+				display:          block;
 				width:            ${ INNER_CIRCLE_DIAMETER };
 				height:           ${ INNER_CIRCLE_DIAMETER };
 				border-radius:    50%;
 				background-color: var( --app-color );
 				transform-origin: center;
-				transform:        translate( 340%, 190% );
+				transform:        translate( 340%, 150% );
 			}
 		</style>
 		`;

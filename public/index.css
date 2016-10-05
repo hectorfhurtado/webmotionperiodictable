@@ -9,6 +9,7 @@
 	--line-dimmed: hsla(0, 0%, 100%, 0.4);
 	--app-backgroun-color: hsl(0, 2%, 27%);
 	--app-color: hsl(180, 6%, 97%);
+	--cell-hover: hsla(60, 100%, 50%, 0.2);
 }
 
 html,
@@ -55,10 +56,17 @@ main
 
 .Table_cell
 {
-	width: calc(100% / 18);
-	border: solid thin var( --line-dimmed );
+	width:         calc(100% / 18);
+	border:        solid thin var( --line-dimmed );
 	border-bottom: none;
-	position: relative;
+	position:      relative;
+	cursor:        pointer;
+	transition:    background-color 0.3s;
+}
+
+.Table_cell:hover
+{
+	background-color: var( --cell-hover );
 }
 
 .Table_row:last-child .Table_cell
@@ -112,6 +120,9 @@ main
 	top: 0;
 	right: 0;
 	left: 0;
+	-moz-user-select: none;
+	user-select: none;
+	pointer-events: none;
 }
 
 .Table_cell h2::first-letter
@@ -121,8 +132,30 @@ main
 
 .Cell_canvas
 {
-	width: 100%;
-	height: 100%;
-	position: relative;
+	width:            100%;
+	height:           100%;
+	position:         relative;
+	-moz-user-select: none;
+	user-select:      none;
+	pointer-events:   none;
 }
 
+.Page 
+{
+	display: flex;
+	flex-direction: column;
+	margin: 2rem 8rem;
+}
+
+.Page > div.horizontal
+{
+	display: flex;
+	flex-direction: row;
+}
+
+.Page_cell
+{
+	width: 8rem;
+	height: 12rem;
+	border: solid thin var(--line-dimmed);
+}
