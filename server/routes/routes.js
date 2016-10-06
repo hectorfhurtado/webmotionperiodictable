@@ -22,9 +22,9 @@ module.exports = ( req, res ) =>
     if (/\.css$/.test( URL ))
         fs.createReadStream( path.join( __dirname, PUBLIC + URL )).pipe( res );
 
-    // **.png
-    if (/\.png$/i.test( URL ))
-        fs.createReadStream( path.join( __dirname, PUBLIC + URL )).pipe( res );
+    // explanations/*.json
+    if (/\/explanations\/\w+\.json$/.test( URL ))
+        fs.createReadStream( path.join( __dirname, PUBLIC + '/page' + URL )).pipe( res );
 
     // .ico
     if (/\.ico$/.test( URL ))

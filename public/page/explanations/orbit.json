@@ -1,0 +1,47 @@
+{
+	"name": "Orbit",
+	"title": "Orbit",
+	"description":
+	[
+		"Motion to rotate the object in orbit.",
+		"One of the well-motion to be used.",
+		"Instead of rotation at the center of the object, the motion obtained by rotating by shifting the base point."
+	],
+	"createMethod": 
+	[
+		"If you want to use in Aftereffects,",
+		"1. Slide the base point by manipulating the anchor points to vary the value of the rotational property."
+	],
+	"application": 
+	[
+		{
+			"description": "1. Sample using the movement of the Orbit to rotate the track.",
+			"cells":
+			[
+				"Orbit",
+				"Scale"
+			],
+			"result": "OrbitPlusScale"
+		},
+		{
+			"description": "2. The combined motion and the motion of the Sin of Orbit shifted the base point.",
+			"cells":
+			[
+				"Orbit",
+				"Sin"
+			],
+			"result": "OrbitPlusSin"
+		}
+	],
+	"samples": 
+	[
+		"OrbitPlusScale",
+		"OrbitPlusSin"
+	],
+	"similarity": 
+	[
+		"Rotate",
+		"Offset",
+		"SymmetricScale"
+	]
+}

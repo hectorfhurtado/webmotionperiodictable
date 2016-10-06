@@ -110,7 +110,8 @@ main
 	font-size: 2.5rem;
 }
 
-.Table_cell h2
+.Table_cell h2,
+.Page_cell h2
 {
 	font-size: 0.9rem;
 	font-weight: inherit;
@@ -125,7 +126,8 @@ main
 	pointer-events: none;
 }
 
-.Table_cell h2::first-letter
+.Table_cell h2::first-letter,
+.Page_cell h2::first-letter
 {
 	font-size: 1.5rem;
 }
@@ -155,7 +157,19 @@ main
 
 .Page_cell
 {
-	width: 8rem;
-	height: 12rem;
+	position: relative;
+	width: 10rem;
+	height: 14rem;
 	border: solid thin var(--line-dimmed);
+}
+
+.Page_cell h2 
+{
+	font-size: 2.75rem;
+	margin-top: 0.5rem;
+}
+
+.Page_cell h2::first-letter
+{
+	font-size: 3.75rem;
 }

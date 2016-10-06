@@ -1,20 +1,28 @@
 (function ()
 {
+	// Exported functions
 	const Orbit =
 	{
 		init,
+		appendTo,
 	};
 
+	/**
+	 * We append this HTML onto the corresponding cell on the table 
+	 */
 	function init()
 	{
 		console.log('Orbit#init');
 
-		appendThis();
+		appendTo( Nando.table.$table.querySelector( '.Orbit' ));
 	}
 
-	function appendThis()
+	/**
+	 * We can append this html on any element and then call its animation method
+	 * @param	{Object}	$orbit	A DOMElement reference
+	 */
+	function appendTo( $orbit )
 	{
-		const $orbit = Nando.table.$table.querySelector( '.Orbit' );
 		const { width } = $orbit.getBoundingClientRect();
 
 		$orbit.innerHTML = 
@@ -33,6 +41,10 @@
 		animate( $orbit.querySelector( '.Orbit_outer_circle' ));
 	}
 
+	/**
+	 * I first tested this styles on the CSS file, then write them down here.
+	 * When WebComponents kick in this can be a good practice, right?
+	 */
 	function insertStyles()
 	{
 		const INNER_CIRCLE_DIAMETER = '25%';
@@ -69,13 +81,14 @@
 		return styles;
 	}
 
+	/**
+	 * We rotate passed element every 3 seconds
+	 * @param	{Object}	$outerCircle
+	 */
 	function animate( $outerCircle )
 	{
 		$outerCircle.animate([
 			{ transform: 'rotate( 0turn )', offset: 0 },
-			{ transform: 'rotate( 0.25turn )', offset: .25 },
-			{ transform: 'rotate( 0.5turn )', offset: 0.5 },
-			{ transform: 'rotate( 0.75turn )', offset: 0.75 },
 			{ transform: 'rotate( 1turn )', offset: 1 },
 		],
 		{
