@@ -10,6 +10,7 @@
 	--app-backgroun-color: hsl(0, 2%, 27%);
 	--app-color: hsl(180, 6%, 97%);
 	--cell-hover: hsla(60, 100%, 50%, 0.2);
+	--body-text: hsl(0, 0%, 77%);
 }
 
 html,
@@ -149,7 +150,7 @@ main
 	margin: 2rem 8rem;
 }
 
-.Page > div.horizontal
+.Page div.horizontal
 {
 	display: flex;
 	flex-direction: row;
@@ -172,4 +173,56 @@ main
 .Page_cell h2::first-letter
 {
 	font-size: 3.75rem;
+}
+
+.Page_name 
+{
+	margin-right: 2rem;
+}
+
+.Page_title
+{
+	font-size:     5rem;
+	margin-top:    0;
+	font-family:   Georgia;
+	font-weight:   normal;
+	margin-bottom: 2rem;
+}
+
+.Page_description,
+.Page_group p
+{
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: var( --body-text );
+}
+
+.Page_description > p,
+.Page_group p
+{
+	margin: 0.25rem 0;
+	font-size: 0.9rem;
+}
+
+.Page_group > h2
+{
+	border-bottom: solid thin var(--body-text); 
+	font-family:   Georgia;
+	font-weight:   normal;
+	padding-bottom: 0.25rem;
+}
+
+.Page_application_cells
+{
+	margin: 2rem 0;
+}
+
+.Page_group .plus
+{
+	width:           5rem;
+	text-align:      center;
+	display:         flex;
+	flex-direction:  column;
+	justify-content: center;
+	font-size:       2rem;
+	font-weight:      bold;
 }
