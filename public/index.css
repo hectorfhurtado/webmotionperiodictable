@@ -223,6 +223,14 @@ main
 	display:         flex;
 	flex-direction:  column;
 	justify-content: center;
-	font-size:       2rem;
+	font-size:       1.5rem;
 	font-weight:      bold;
+}
+
+.Page_result
+{
+	position: relative;
+	width: 25rem;
+	height: 14rem;
+	border: solid thin var(--line-dimmed);
 }
