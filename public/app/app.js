@@ -15,6 +15,7 @@
 
 		const $main = document.querySelector( 'main' );
 		$main.addEventListener( 'cellClicked', cellClickedHandler, true )
+		$main.addEventListener( 'pageBack', pageBackhandler, true )
 
 		Nando.load({ module: 'table' })
 			.then(() => Nando.table.init() );
@@ -36,7 +37,7 @@
 		const animationProperties =
 		{
 			duration: 300,
-			fill: 'forwards',
+			fill:     'forwards',
 		};
 
 		const tableAnimation = $table.animate([
@@ -55,6 +56,34 @@
 			], animationProperties );
 
 			Nando.page.show({ cellName, dimensions });
+		};
+	}
+
+	function pageBackhandler()
+	{
+		const $page  = $( '.Page' );
+		const $table = $( '.Table' );
+
+		const animationProperties =
+		{
+			duration: 300,
+			fill:     'forwards',
+		};
+
+		const pageAnimation = $page.animate([
+			{ opacity: 1 },
+			{ opacity: 0 },
+		], animationProperties )
+
+		pageAnimation.onfinish = function ()
+		{
+			$page.style.display  = 'none';
+			$table.style.display = 'flex';
+
+			$table.animate([
+				{ opacity: 0 },
+				{ opacity: 1 },
+			], animationProperties );
 		};
 	}
 

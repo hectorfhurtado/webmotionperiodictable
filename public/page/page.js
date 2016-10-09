@@ -14,6 +14,8 @@
 	function init()
 	{
 		console.log( 'Page#init' );
+
+		backButtonEvent();
 	}
 
 	/**
@@ -68,7 +70,7 @@
 
 		const options =
 		{
-			fill:     'forwards',
+			fill:     'both',
 			easing:   'ease-in-out',
 			duration: 300,
 		};
@@ -153,6 +155,17 @@
 					console.log( `${ cellName } not yet implemented` );
 				}
 			});
+	}
+
+	function backButtonEvent()
+	{
+		$( '.Page_back' ).addEventListener( 'click', event =>
+		{
+			const customEvent  = new CustomEvent( 'pageBack' );
+
+			$( '.Page' ).dispatchEvent( customEvent );
+			hideAllGroups();
+		}, true );
 	}
 
 	Object.assign( Nando, { page: Page });

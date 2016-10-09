@@ -65,7 +65,8 @@ main
 	transition:    background-color 0.3s;
 }
 
-.Table_cell:hover
+.Table_cell:hover,
+.Page_back:hover
 {
 	background-color: var( --cell-hover );
 }
@@ -264,4 +265,17 @@ main
 {
 	width: 100%;
 	margin-bottom: 4rem;
+}
+
+.Page_back
+{
+	padding:          0.75rem 1rem;
+	position:         absolute;
+	color:            var(--app-color);
+	background-color: transparent;
+	border:           solid thin var(--line-dimmed);
+	border-radius:    4px;
+	right:            103%;
+	cursor: 	      pointer;
+	transition:       background-color 0.3s;
 }
