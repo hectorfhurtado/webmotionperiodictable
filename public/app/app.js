@@ -30,8 +30,32 @@
 	function cellClickedHandler( event )
 	{
 		const { cellName, dimensions } = event.detail;
+		const $page  = $( '.Page' );
+		const $table = $( '.Table' );
 
-		Nando.page.show({ cellName, dimensions });
+		const animationProperties =
+		{
+			duration: 300,
+			fill: 'forwards',
+		};
+
+		const tableAnimation = $table.animate([
+			{ opacity: 1 },
+			{ opacity: 0 },
+		], animationProperties )
+
+		tableAnimation.onfinish = function ()
+		{
+			$table.style.display = 'none';
+			$page.style.display  = 'flex';
+
+			$page.animate([
+				{ opacity: 0 },
+				{ opacity: 1 },
+			], animationProperties );
+
+			Nando.page.show({ cellName, dimensions });
+		};
 	}
 
 	Object.assign( Nando, { app: App });

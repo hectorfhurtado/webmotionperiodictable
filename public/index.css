@@ -145,9 +145,15 @@ main
 
 .Page 
 {
-	display: flex;
+	opacity: 0;
+	display: none;
+	/*display: flex;*/
 	flex-direction: column;
 	margin: 2rem 8rem;
+
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .Page div.horizontal
@@ -187,6 +193,11 @@ main
 	font-family:   Georgia;
 	font-weight:   normal;
 	margin-bottom: 2rem;
+}
+
+.Page_group
+{
+	opacity: 0;
 }
 
 .Page_description,
@@ -233,4 +244,24 @@ main
 	width: 25rem;
 	height: 14rem;
 	border: solid thin var(--line-dimmed);
+}
+
+.Page_samples,
+.Page_similar
+{
+	display:        flex;
+	flex-direction: row;
+	flex-wrap:      wrap;
+}
+
+.Page_samples .Page_result + .Page_result,
+.Page_similar .Page_cell + .Page_cell
+{
+	margin-left: 1rem;
+}
+
+.Page_end
+{
+	width: 100%;
+	margin-bottom: 4rem;
 }
