@@ -44,9 +44,8 @@
 	{
 		if (event.target.classList.contains( 'Table_cell') === false) return;
 
-		const dimensions   = event.target.getBoundingClientRect();
 		const [ cellName ] = Array.from( event.target.classList ).filter( classList => classList !== 'Table_cell' ); 
-		const customEvent  = new CustomEvent( 'cellClicked', { detail: { dimensions, cellName }});
+		const customEvent  = new CustomEvent( 'cellClicked', { detail: { cellName }});
 
 		this.$table.dispatchEvent( customEvent );
 	}

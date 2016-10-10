@@ -6,6 +6,7 @@
 	{
 		init,
 		show,
+		results: {},
 	};
 
 	/**
@@ -21,7 +22,7 @@
 	/**
 	 * We fetch JSON information for clicked cell and start position received information on screen
 	 */
-	function show({ cellName, dimensions })
+	function show({ cellName })
 	{
 		const cellname = cellName.toLowerCase();
 
@@ -53,6 +54,7 @@
 
 		revealAllGroups();
 		applyCells();
+		applyResults();
 	}
 
 	function hideAllGroups()
@@ -155,6 +157,36 @@
 					console.log( `${ cellName } not yet implemented` );
 				}
 			});
+	}
+
+	function applyResults()
+	{
+		$$( '.Page .Page_result' )
+			.map( $pageResult =>
+			{
+				const PageResult =
+				{
+					$pageResult,
+					cellName: Array.from( $pageResult.classList ).filter( classlist => classlist != 'Page_result' )[ 0 ]
+				};
+				return PageResult; 
+			})
+			.forEach( ({ $pageResult, cellName }) =>
+			{
+				const module = cellName.toLowerCase();
+
+				if (!Nando.page.results[ module ])
+					return Nando.load({ path: `/page/results/${ module }`})
+						.then(() => appendResult({ $pageResult, module }))
+						.catch( error => console.log( error ));
+
+				return appendResult({ $pageResult, module });
+			});
+	}
+
+	function appendResult({ $pageResult, module })
+	{
+		Nando.page.results[ module ].appendTo( $pageResult );
 	}
 
 	function backButtonEvent()

@@ -30,7 +30,7 @@
 	 */
 	function cellClickedHandler( event )
 	{
-		const { cellName, dimensions } = event.detail;
+		const { cellName } = event.detail;
 		const $page  = $( '.Page' );
 		const $table = $( '.Table' );
 
@@ -55,7 +55,7 @@
 				{ opacity: 1 },
 			], animationProperties );
 
-			Nando.page.show({ cellName, dimensions });
+			Nando.page.show({ cellName });
 		};
 	}
 
