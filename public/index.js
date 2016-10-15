@@ -14,6 +14,8 @@ window.Nando = (function ()
 {
 	window.addEventListener( 'DOMContentLoaded', main, { once: true });
 	
+	let loading = {};
+
 	function main()
 	{
 		load({ module: 'app' })
@@ -39,7 +41,9 @@ window.Nando = (function ()
 		}
 		else return Promise.reject( 'I do not have a path or module to work with' );
 
-		return new Promise( resolve =>
+		if (loading[ scriptSource ]) return loading[ scriptSource ];
+
+		loading[ scriptSource ] = new Promise( resolve =>
 		{
 			const $head   = $( 'head' );
 			const $script = document.createElement( 'script' );
@@ -48,11 +52,14 @@ window.Nando = (function ()
 			$script.addEventListener( 'load', () => 
 			{
 				$head.removeChild( $script );
+				delete loading[ scriptSource ];
 				resolve();
 			}, { once: true });
 
 			$head.appendChild( $script );
 		});
+
+		return loading[ scriptSource ];
 	}
 
 	const Nando =

@@ -26,6 +26,10 @@ module.exports = ( req, res ) =>
     if (/\/explanations\/\w+\.json$/.test( URL ))
         fs.createReadStream( path.join( __dirname, PUBLIC + '/page' + URL )).pipe( res );
 
+    // templates
+    if (/\/results\/\w+\.html/.test( URL ))
+        fs.createReadStream( path.join( __dirname, PUBLIC + URL )).pipe( res );
+
     // .ico
     if (/\.ico$/.test( URL ))
     {
