@@ -11,7 +11,7 @@
 	--app-color: hsl(180, 6%, 97%);
 	--cell-hover: hsla(60, 100%, 50%, 0.2);
 	--body-text: hsl(0, 0%, 77%);
-	--circle-blue: hsl(197, 25%, 54%);
+	--circle-blue: hsla(197, 25%, 54%, 0.4);
 }
 
 html,

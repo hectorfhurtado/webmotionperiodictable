@@ -44,7 +44,12 @@
 		$orbitPlusScale.appendChild( $clone );
 
 		animate( $orbitPlusScale );
-		addScaleCircles( $orbitPlusScale );
+
+		// Needed for the DOM to settle
+		setTimeout( function ()
+		{
+			addScaleCircles( $orbitPlusScale );
+		}, 100 );
 	}
 
 	/**
@@ -85,19 +90,58 @@
 
 	function addScaleCircles( $orbitPlusScale )
 	{
-		const NUMBER_OF_CIRCLES = 8;
-		const TOTAL_DURATION = 5000;
+		const NUMBER_OF_CIRCLES = 4;
+		const TOTAL_DURATION    = 5000;
+		const RADIUS            = '16'; // ~1rem
 
-		$$( '.OrbitPlusScale_animation', $orbitPlusScale ).forEach( $container =>
+		$$( '.OrbitPlusScale_scaled_container', $orbitPlusScale ).forEach( $container =>
 		{
+			const { width, height } = $container.getBoundingClientRect();
+
 			for (let i = 0; i < NUMBER_OF_CIRCLES; i += 1)
 			{
-				const delay = Math.random() * 4000;
-				const opacityMin = (Math.random() * 4) * 0.1; 
-				const opacityMax = (Math.random() * 3 +  4) * 0.1;
-				const scaleMin = (Math.random() * 3) * 0.1; 
-				const scaleMax = (Math.random() * 7 + 3) * 0.1;
-				const x = ; // TODO: calcular el valor de X y Y tomando en cuenta el tamano del contenedor 
+				const delay           = Math.random() * 3000;
+				const opacityMin      = Math.random() * 0.2; 
+				const scaleMin        = Math.random() * 0.3; 
+				const scaleMax        = Math.random() * 0.2 + 0.5;
+				const x               = (width * Math.random() - (width / 2)) + 'px';
+				const y               = (height * Math.random() - (width / 2)) + 'px';
+				const duration        = Math.random() * 500 + 900;
+				const endDelay        = TOTAL_DURATION - delay - duration;
+				const classPosibility = Math.random();
+
+				const $circle = document.createElement( 'div' );
+				$circle.classList.add( 'OrbitPlusScale_scale_circle' );
+				$circle.style.left      = x;
+				$circle.style.top       = y;
+				$circle.style.opacity   = opacityMin;
+				$circle.style.scale     = scaleMin;
+				$circle.style.width     = width + 'px';
+				$circle.style.height    = height + 'px';
+				$circle.style.transform = `scale( ${ scaleMin })`;
+
+				if (classPosibility < 0.2)
+					$circle.classList.add( 'OrbitPlusScale_scale_circle_white' );
+				
+				if (classPosibility > 0.8)
+					$circle.classList.add( 'OrbitPlusScale_scale_circle_blue' );
+
+				$container.appendChild( $circle );
+				
+				$circle.animate(
+				[
+					{ opacity: 0, transform: 'scale(0)', offset: 0 },
+					{ opacity: opacityMin, transform: `scale(${ scaleMin })`, offset: 0.05 },
+					{ opacity: 1, transform: `scale(${ scaleMax })`, offset: 0.7 },
+					{ opacity: 1, transform: `scale(${ scaleMax })`, offset: 0.8 },
+					{ opacity: 0, transform: `scale(${ scaleMax })`, offset: 1 },
+				], {
+					delay,
+					duration,
+					endDelay,
+					iterations: Infinity,
+					easing:     'ease-out',
+				});
 			}
 		});
 	}
