@@ -167,9 +167,10 @@ main
 .Page_cell
 {
 	position: relative;
-	width: 10rem;
-	height: 14rem;
-	border: solid thin var(--line-dimmed);
+	width:    10rem;
+	height:   14rem;
+	border:   solid thin var(--line-dimmed);
+	cursor:   pointer;
 }
 
 .Page_cell h2 

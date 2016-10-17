@@ -30,36 +30,21 @@
 	 */
 	function cellClickedHandler( event )
 	{
-		const { cellName } = event.detail;
 		const $page  = $( '.Page' );
 		const $table = $( '.Table' );
 
-		const animationProperties =
-		{
-			duration: 300,
-			fill:     'forwards',
-		};
-
-		const tableAnimation = $table.animate([
-			{ opacity: 1 },
-			{ opacity: 0 },
-		], animationProperties )
-
-		tableAnimation.onfinish = function ()
-		{
-			$table.style.display = 'none';
-			$page.style.display  = 'flex';
-
-			$page.animate([
-				{ opacity: 0 },
-				{ opacity: 1 },
-			], animationProperties );
-
-			Nando.page.show({ cellName });
-		};
+		animateTransition( $table, $page, event.detail )
 	}
 
 	function pageBackhandler()
+	{
+		const $page  = $( '.Page' );
+		const $table = $( '.Table' );
+
+		animateTransition( $page, $table );
+	}
+
+	function animateTransition( $previous, $next, detail = null )
 	{
 		const $page  = $( '.Page' );
 		const $table = $( '.Table' );
@@ -70,20 +55,25 @@
 			fill:     'forwards',
 		};
 
-		const pageAnimation = $page.animate([
+		const previousAnimation = $previous.animate([
 			{ opacity: 1 },
 			{ opacity: 0 },
 		], animationProperties )
 
-		pageAnimation.onfinish = function ()
+		previousAnimation.onfinish = function ()
 		{
-			$page.style.display  = 'none';
-			$table.style.display = 'flex';
+			$previous.style.display = 'none';
+			$next.style.display     = 'flex';
 
-			$table.animate([
+			$next.animate([
 				{ opacity: 0 },
 				{ opacity: 1 },
 			], animationProperties );
+
+			if (!detail) return;
+				
+			const { cellName } = detail;
+			Nando.page.show({ cellName });
 		};
 	}
 

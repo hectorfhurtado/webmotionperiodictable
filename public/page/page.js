@@ -24,6 +24,12 @@
 	 */
 	function show({ cellName })
 	{
+		if ($( '.Page .Page_title' ).textContent == cellName)
+		{
+			revealAllGroups();
+			return null;
+		}
+
 		const cellname = cellName.toLowerCase();
 
 		fetch( `/explanations/${ cellname }.json` )

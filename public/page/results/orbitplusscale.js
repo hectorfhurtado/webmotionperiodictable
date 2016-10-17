@@ -6,9 +6,6 @@
 		appendTo,
 	};
 
-	let fetching = false;
-	let appendTos = [];
-
 	/**
 	 * We can append this html on any element and then call its animation method
 	 * @param	{Object}	$orbitPlusScale	A DOMElement reference
@@ -17,39 +14,20 @@
 	{
 		console.log( 'OrbitPlusScale#appendTo' );
 
+		Nando.loadTemplate({ path: './page/results/orbitplusscale' })
+			.then(() => _appendTo( $orbitPlusScale ));
+	}
+
+	function _appendTo( $orbitPlusScale )
+	{
 		const $template = $( '#orbitplusscale_template' );
+		const $clone    = document.importNode( $template.content, true );
 
-		if (!$template)	
-		{
-			appendTos.push( $orbitPlusScale );
-
-			if (!fetching)
-			{
-				fetching = true;
-
-				return fetch( './page/results/orbitplusscale.html' )
-					.then( templateRaw => templateRaw.text() )
-					.then( template => $( 'body' ).insertAdjacentHTML( 'beforeend', template ))
-					.then(() => 
-					{
-						appendTos.forEach( appendTo );
-						appendTos.length = 0;
-						fetching = false;
-					});
-			}
-			return;
-		}
-
-		const $clone = document.importNode( $template.content, true );
 		$orbitPlusScale.appendChild( $clone );
-
 		animate( $orbitPlusScale );
 
 		// Needed for the DOM to settle
-		setTimeout( function ()
-		{
-			addScaleCircles( $orbitPlusScale );
-		}, 100 );
+		setTimeout( addScaleCircles.bind( null, $orbitPlusScale ), 100 );
 	}
 
 	/**
@@ -92,7 +70,6 @@
 	{
 		const NUMBER_OF_CIRCLES = 4;
 		const TOTAL_DURATION    = 5000;
-		const RADIUS            = '16'; // ~1rem
 
 		$$( '.OrbitPlusScale_scaled_container', $orbitPlusScale ).forEach( $container =>
 		{
@@ -112,13 +89,17 @@
 
 				const $circle = document.createElement( 'div' );
 				$circle.classList.add( 'OrbitPlusScale_scale_circle' );
-				$circle.style.left      = x;
-				$circle.style.top       = y;
-				$circle.style.opacity   = opacityMin;
-				$circle.style.scale     = scaleMin;
-				$circle.style.width     = width + 'px';
-				$circle.style.height    = height + 'px';
-				$circle.style.transform = `scale( ${ scaleMin })`;
+
+				Object.assign( $circle.style, 
+				{
+					left:      x,
+					top:       y,
+					opacity:   opacityMin,
+					scale:     scaleMin,
+					width:     width + 'px',
+					height:    height + 'px',
+					transform: `scale( ${ scaleMin })`,
+				});
 
 				if (classPosibility < 0.2)
 					$circle.classList.add( 'OrbitPlusScale_scale_circle_white' );
@@ -127,21 +108,31 @@
 					$circle.classList.add( 'OrbitPlusScale_scale_circle_blue' );
 
 				$container.appendChild( $circle );
-				
-				$circle.animate(
-				[
-					{ opacity: 0, transform: 'scale(0)', offset: 0 },
-					{ opacity: opacityMin, transform: `scale(${ scaleMin })`, offset: 0.05 },
-					{ opacity: 1, transform: `scale(${ scaleMax })`, offset: 0.7 },
-					{ opacity: 1, transform: `scale(${ scaleMax })`, offset: 0.8 },
-					{ opacity: 0, transform: `scale(${ scaleMax })`, offset: 1 },
-				], {
+
+				const animationProperties =
+				{
 					delay,
 					duration,
 					endDelay,
 					iterations: Infinity,
 					easing:     'ease-out',
-				});
+				};
+
+				$circle.animate(
+				[
+					{ opacity: 0, offset: 0 },
+					{ opacity: opacityMin, offset: 0.05 },
+					{ opacity: 1, offset: 0.7 },
+					{ opacity: 1, offset: 0.8 },
+					{ opacity: 0, offset: 1 },
+				], animationProperties );
+
+				$circle.animate(
+				[
+					{ transform: `scale(${ scaleMin })` },
+					{ transform: `scale(${ scaleMax })`, offset: 0.7 },
+					{ transform: `scale(${ scaleMax })` },
+				], animationProperties );
 			}
 		});
 	}

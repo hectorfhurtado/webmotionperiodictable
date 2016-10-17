@@ -15,6 +15,13 @@ window.Nando = (function ()
 	window.addEventListener( 'DOMContentLoaded', main, { once: true });
 	
 	let loading = {};
+	let loaded  = {};
+
+	const Nando =
+	{
+		load,
+		loadTemplate,
+	};
 
 	function main()
 	{
@@ -62,10 +69,26 @@ window.Nando = (function ()
 		return loading[ scriptSource ];
 	}
 
-	const Nando =
+	function loadTemplate({ path = null })
 	{
-		load,
-	};
+		if (!path) return Promise.reject( 'I need a path to funciton' );
+
+		const scriptSource = path + '.html';
+
+		if (loaded[ scriptSource ]) return Promise.resolve();
+
+		loading[ scriptSource ] = fetch( scriptSource )
+			.then( templateRaw =>
+			{
+				loaded[ scriptSource ] = true;
+				delete loading[ scriptSource ];
+
+				return templateRaw.text();
+			})
+			.then( template => $( 'body' ).insertAdjacentHTML( 'beforeend', template ));
+
+		return loading[ scriptSource ];
+	}
 
 	return Nando; 
 })();
