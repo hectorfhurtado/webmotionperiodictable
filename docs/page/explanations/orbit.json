@@ -1,0 +1,48 @@
+{
+	"name": "Orbit",
+	"title": "Orbit",
+	"description":
+	[
+		"Motion to rotate the object in orbit.",
+		"One of the well-motion to be used.",
+		"Instead of rotation at the center of the object, the motion obtained by rotating by shifting the base point."
+	],
+	"createMethod": 
+	[
+		"On the web,",
+		"1. Nest an element inside another and position it",
+		"2. Transform rotate parent element and child or children elements will follow"
+	],
+	"application": 
+	[
+		{
+			"description": "1. Sample using the movement of the Orbit to rotate the track.",
+			"cells":
+			[
+				"Orbit",
+				"Scale"
+			],
+			"result": "OrbitPlusScale"
+		},
+		{
+			"description": "2. The combined motion and the motion of the Sin of Orbit shifted the base point.",
+			"cells":
+			[
+				"Orbit",
+				"Sin"
+			],
+			"result": "OrbitPlusSin"
+		}
+	],
+	"samples": 
+	[
+		"OrbitPlusScale",
+		"OrbitPlusSin"
+	],
+	"similar": 
+	[
+		"Rotate",
+		"Offset",
+		"SymmetricScale"
+	]
+}

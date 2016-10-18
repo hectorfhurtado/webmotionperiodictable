@@ -1,0 +1,177 @@
+:root {
+	--square-side: calc( 25rem / 3 );
+}
+
+.OrbitPlusScale_container
+{
+	display: flex;
+	flex-direction: row;
+}
+
+.OrbitPlusScale_container > div
+{
+	flex-grow:       1;
+	display:         flex;
+	flex-direction:  column;
+	justify-content: center;
+	object-fit:      contain;
+	position:        relative;
+}
+
+.OrbitPlusScale_container label
+{
+	font-family:  serif;
+	color:        var(--line-dimmed);
+	padding-left: 1rem;
+}
+
+.OrbitPlusScale_container label:last-child
+{
+	transform: translateY( -1rem );
+}
+
+.OrbitPlusScale_animation
+{
+	width:    var( --square-side );
+	position: relative;
+	height:   var( --square-side );
+}
+
+.OrbitPlusScale_outer_ring,
+.OrbitPlusScale_outer_ring_p2,
+.OrbitPlusScale_outer_ring_p3
+{
+	width:         calc(100% - 2rem);
+	height:        calc(100% - 2rem);
+	border:        solid thin var(--line-dimmed);
+	margin:        0 1rem;
+	border-radius: 50%;
+	position:      relative;
+}
+
+.OrbitPlusScale_outer_ring_p2,
+.OrbitPlusScale_outer_ring_p3
+{
+	position: absolute;
+}
+
+.OrbitPlusScale_outer_ring_p2:not(:first-child),
+.OrbitPlusScale_outer_ring_p3:not(:first-child)
+{
+	border: solid thin transparent;
+}
+
+.OrbitPlusScale_atom,
+.OrbitPlusScale_atom1,
+.OrbitPlusScale_atom2,
+.OrbitPlusScale_atom3
+{
+	height:           1rem;
+	width:            1rem;
+	background-color: hsl(33, 50%, 39%);
+	border-radius:    50%;
+	position:         absolute;
+	left:             calc( 50% - 0.5rem);
+}
+
+.OrbitPlusScale_atom,
+.OrbitPlusScale_atom1,
+.OrbitPlusScale_atom3
+{
+	top: -0.5rem;
+}
+
+.OrbitPlusScale_atom2
+{
+	bottom: -0.5rem;
+}
+
+.OrbitPlusScale_atom 
+{
+	background-color: hsl(357, 42%, 41%);
+}
+
+.OrbitPlusScale_atom3 
+{
+	background-color: hsl(56, 39%, 42%);
+}
+
+.OrbitPlusScale_inner_rings,
+.OrbitPlusScale_inner_rings::after
+{
+	position:      absolute;
+	top:           1rem;
+	bottom:        3rem;
+	left:          2rem;
+	right:         2rem;
+	border-radius: 50%;
+	border:        solid var(--line-dimmed);
+}
+
+.OrbitPlusScale_inner_rings::after
+{
+		content: '';
+		display: block;
+		top:     1rem;
+		bottom:  1rem;
+		left:    1rem;
+		right:   1rem;
+}
+
+.OrbitPlusScale_dashed-lines,
+.OrbitPlusScale_dashed-lines::after
+{
+		width: calc( 100% - 2rem );
+		height:   calc( 100% - 2rem );
+		position: absolute;
+		top:      0;
+		left:     50%;
+}
+
+.OrbitPlusScale_dashed-lines
+{
+	border-left: dashed thin var(--line-dimmed); 
+}
+
+.OrbitPlusScale_dashed-lines::after
+{
+	content:    '';
+	display:    block;
+	top:        50%;
+	left:       -50%;
+	border-top: dashed thin var(--line-dimmed);
+	width:      100%; 
+}
+
+.OrbitPlusScale_scale_circle
+{
+	border-radius: 50%;
+	width: 2rem;
+	height: 2rem;
+	border: solid thin var( --line-dimmed );
+	position: absolute;
+}
+
+.OrbitPlusScale_scale_circle_white
+{
+	border: none;
+	background-color: var( --line-dimmed );
+}
+
+.OrbitPlusScale_scale_circle_blue
+{
+	border: none;
+	background-color: var( --circle-blue );
+}
+
+.OrbitPlusScale_scaled_container
+{
+	width:    calc(100% - 2rem);
+	height:   calc(100% - 2rem);
+	margin:   0 1rem;
+	position: absolute;
+	top:      0;
+	left:     0;
+	right:    0;
+	bottom:   0;
+}

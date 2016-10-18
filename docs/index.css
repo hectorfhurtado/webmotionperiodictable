@@ -1,0 +1,283 @@
+
+* 
+{
+	box-sizing: border-box;
+}
+
+:root
+{
+	--line-dimmed: hsla(0, 0%, 100%, 0.4);
+	--app-backgroun-color: hsl(0, 2%, 27%);
+	--app-color: hsl(180, 6%, 97%);
+	--cell-hover: hsla(60, 100%, 50%, 0.2);
+	--body-text: hsl(0, 0%, 77%);
+	--circle-blue: hsla(197, 25%, 54%, 0.4);
+}
+
+html,
+body 
+{
+	padding: 0;
+	margin:  0;
+	width:   100%;
+	height:  100%;
+	display: block;
+}
+
+body 
+{
+	background-color: var( --app-backgroun-color );
+	font-size:        16px;
+	color:            var( --app-color );
+}
+
+main
+{
+	position: absolute;
+	top:      0;
+	left:     0;
+	right:    0;
+	bottom:   0;
+}
+
+.Table 
+{
+	display: flex;
+	flex-direction: column;
+	height: calc( 100% - 4rem);
+	width: calc( 100% - 6rem);
+	margin: 2rem auto;
+}
+
+.Table_row
+{
+	display: flex;
+	flex-direction: row;
+	height: calc( 100% / 6 );
+}
+
+.Table_cell
+{
+	width:         calc(100% / 18);
+	border:        solid thin var( --line-dimmed );
+	border-bottom: none;
+	position:      relative;
+	cursor:        pointer;
+	transition:    background-color 0.3s;
+}
+
+.Table_cell:hover,
+.Page_back:hover
+{
+	background-color: var( --cell-hover );
+}
+
+.Table_row:last-child .Table_cell
+{
+	border-bottom: solid thin var( --line-dimmed );
+}
+
+.Table_cell + .Table_cell
+{
+	border-left: none;
+}
+
+.Table_cell_grow
+{
+	flex-grow: 1;
+}
+
+.Table_title
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	font-size: 2rem;
+	align-items: center;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.Table_title > p 
+{
+	margin: 0;
+}
+
+.Table_title > p > span
+{
+	display: inline-block;
+}
+
+.Table_title > p::first-letter,
+.Table_title > p > span::first-letter
+{
+	font-size: 2.5rem;
+}
+
+.Table_cell h2,
+.Page_cell h2
+{
+	font-size: 0.9rem;
+	font-weight: inherit;
+	text-align: center;
+	margin-top: 0.2rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	-moz-user-select: none;
+	user-select: none;
+	pointer-events: none;
+}
+
+.Table_cell h2::first-letter,
+.Page_cell h2::first-letter
+{
+	font-size: 1.5rem;
+}
+
+.Cell_canvas
+{
+	width:            100%;
+	height:           100%;
+	position:         relative;
+	-moz-user-select: none;
+	user-select:      none;
+	pointer-events:   none;
+}
+
+.Page 
+{
+	opacity: 0;
+	display: none;
+	/*display: flex;*/
+	flex-direction: column;
+	margin: 2rem 8rem;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.Page div.horizontal
+{
+	display: flex;
+	flex-direction: row;
+}
+
+.Page_cell
+{
+	position: relative;
+	width:    10rem;
+	height:   14rem;
+	border:   solid thin var(--line-dimmed);
+	cursor:   pointer;
+}
+
+.Page_cell h2 
+{
+	font-size: 2.75rem;
+	margin-top: 0.5rem;
+}
+
+.Page_cell h2::first-letter
+{
+	font-size: 3.75rem;
+}
+
+.Page_name 
+{
+	margin-right: 2rem;
+}
+
+.Page_title
+{
+	font-size:     5rem;
+	margin-top:    0;
+	font-family:   Georgia;
+	font-weight:   normal;
+	margin-bottom: 2rem;
+}
+
+.Page_group
+{
+	opacity: 0;
+}
+
+.Page_description,
+.Page_group p
+{
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: var( --body-text );
+}
+
+.Page_description > p,
+.Page_group p
+{
+	margin: 0.25rem 0;
+	font-size: 0.9rem;
+}
+
+.Page_group > h2
+{
+	border-bottom: solid thin var(--body-text); 
+	font-family:   Georgia;
+	font-weight:   normal;
+	padding-bottom: 0.25rem;
+}
+
+.Page_application_cells
+{
+	margin: 2rem 0;
+}
+
+.Page_group .plus
+{
+	width:           5rem;
+	text-align:      center;
+	display:         flex;
+	flex-direction:  column;
+	justify-content: center;
+	font-size:       1.5rem;
+	font-weight:      bold;
+}
+
+.Page_result
+{
+	position: relative;
+	width: 25rem;
+	height: 14rem;
+	border: solid thin var(--line-dimmed);
+}
+
+.Page_samples,
+.Page_similar
+{
+	display:        flex;
+	flex-direction: row;
+	flex-wrap:      wrap;
+}
+
+.Page_samples .Page_result + .Page_result,
+.Page_similar .Page_cell + .Page_cell
+{
+	margin-left: 1rem;
+}
+
+.Page_end
+{
+	width: 100%;
+	margin-bottom: 4rem;
+}
+
+.Page_back
+{
+	padding:          0.75rem 1rem;
+	position:         absolute;
+	color:            var(--app-color);
+	background-color: transparent;
+	border:           solid thin var(--line-dimmed);
+	border-radius:    4px;
+	right:            103%;
+	cursor: 	      pointer;
+	transition:       background-color 0.3s;
+}
