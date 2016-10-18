@@ -14,7 +14,7 @@
 	{
 		console.log( 'OrbitPlusScale#appendTo' );
 
-		Nando.loadTemplate({ path: '/page/results/orbitplusscale' })
+		Nando.loadTemplate({ path: 'page/results/orbitplusscale' })
 			.then(() => _appendTo( $orbitPlusScale ));
 	}
 
