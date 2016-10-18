@@ -32,7 +32,7 @@
 
 		const cellname = cellName.toLowerCase();
 
-		fetch( `/explanations/${ cellname }.json` )
+		fetch( `/webmotionperiodictable/page/explanations/${ cellname }.json` )
 			.then( result => result.json())
 			.then( fillPage );
 
