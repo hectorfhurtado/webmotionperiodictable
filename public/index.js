@@ -76,6 +76,7 @@ window.Nando = (function ()
 		const scriptSource = path + '.html';
 
 		if (loaded[ scriptSource ]) return Promise.resolve();
+		if (loading[ scriptSource ]) return loading[ scriptSource ];
 
 		loading[ scriptSource ] = fetch( scriptSource )
 			.then( templateRaw =>

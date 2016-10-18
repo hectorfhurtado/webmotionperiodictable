@@ -9,8 +9,9 @@
 	],
 	"createMethod": 
 	[
-		"If you want to use in Aftereffects,",
-		"1. Slide the base point by manipulating the anchor points to vary the value of the rotational property."
+		"On the web,",
+		"1. Nest an element inside another and position it",
+		"2. Transform rotate parent element and child or children elements will follow"
 	],
 	"application": 
 	[
