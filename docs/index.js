@@ -44,7 +44,7 @@ window.Nando = (function ()
 			if (!!Nando[ module ])
 				return Promise.resolve();
 
-			else scriptSource = `/${ module }/${ module }.js`; 
+			else scriptSource = `/webmotionperiodictable/${ module }/${ module }.js`; 
 		}
 		else return Promise.reject( 'I do not have a path or module to work with' );
 
@@ -73,7 +73,7 @@ window.Nando = (function ()
 	{
 		if (!path) return Promise.reject( 'I need a path to funciton' );
 
-		const scriptSource = path + '.html';
+		const scriptSource = 'webmotionperiodictable' + path + '.html';
 
 		if (loaded[ scriptSource ]) return Promise.resolve();
 		if (loading[ scriptSource ]) return loading[ scriptSource ];
