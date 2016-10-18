@@ -37,7 +37,7 @@ window.Nando = (function ()
 		let scriptSource = '';
 
 		if (path)
-			scriptSource = 'webmotionperiodictable' + path + '.js';
+			scriptSource = path + '.js';
 
 		else if (module)
 		{
