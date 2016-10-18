@@ -73,7 +73,7 @@ window.Nando = (function ()
 	{
 		if (!path) return Promise.reject( 'I need a path to funciton' );
 
-		const scriptSource = 'webmotionperiodictable' + path + '.html';
+		const scriptSource = path + '.html';
 
 		if (loaded[ scriptSource ]) return Promise.resolve();
 		if (loading[ scriptSource ]) return loading[ scriptSource ];
