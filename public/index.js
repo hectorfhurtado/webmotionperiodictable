@@ -44,7 +44,7 @@ window.Nando = (function ()
 			if (!!Nando[ module ])
 				return Promise.resolve();
 
-			else scriptSource = `/${ module }/${ module }.js`; 
+			else scriptSource = `${ module }/${ module }.js`; 
 		}
 		else return Promise.reject( 'I do not have a path or module to work with' );
 
