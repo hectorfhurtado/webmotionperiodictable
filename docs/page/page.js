@@ -44,7 +44,7 @@
 
 		const cellname = cellName.toLowerCase();
 
-		fetch( `explanations/${ cellname }.json` )
+		fetch( `page/explanations/${ cellname }.json` )
 			.then( result => result.json())
 			.then( fillPage );
 
