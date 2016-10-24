@@ -14,7 +14,7 @@
 	{
 		console.log( 'OrbitPlusScale#appendTo' );
 
-		Nando.loadTemplate({ path: './page/results/orbitplusscale' })
+		Nando.loadTemplate({ path: 'page/results/orbitplusscale' })
 			.then(() => _appendTo( $orbitPlusScale ));
 	}
 
@@ -27,7 +27,7 @@
 		animate( $orbitPlusScale );
 
 		// Needed for the DOM to settle
-		setTimeout( addScaleCircles.bind( null, $orbitPlusScale ), 100 );
+		setTimeout( addScaleCircles.bind( null, $orbitPlusScale ), 200 );
 	}
 
 	/**

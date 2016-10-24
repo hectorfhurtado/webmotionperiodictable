@@ -6,22 +6,23 @@
 
 :root
 {
-	--line-dimmed: hsla(0, 0%, 100%, 0.4);
+	--line-dimmed:         hsla(0, 0%, 100%, 0.4);
 	--app-backgroun-color: hsl(0, 2%, 27%);
-	--app-color: hsl(180, 6%, 97%);
-	--cell-hover: hsla(60, 100%, 50%, 0.2);
-	--body-text: hsl(0, 0%, 77%);
-	--circle-blue: hsla(197, 25%, 54%, 0.4);
+	--app-color:           hsl(180, 6%, 97%);
+	--cell-hover:          hsla(60, 100%, 50%, 0.2);
+	--body-text:           hsl(0, 0%, 77%);
+	--circle-blue:         hsla(197, 25%, 54%, 0.4);
 }
 
 html,
 body 
 {
-	padding: 0;
-	margin:  0;
-	width:   100%;
-	height:  100%;
-	display: block;
+	padding:         0;
+	margin:          0;
+	width:           100%;
+	height:          100%;
+	display:         block;
+	scroll-behavior: smooth;
 }
 
 body 

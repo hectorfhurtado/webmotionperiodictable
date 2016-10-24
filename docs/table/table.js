@@ -3,6 +3,7 @@
 	const Names =
 	[
 		'Orbit',
+		'Offset',
 	];
 
 	const Table =
@@ -32,7 +33,7 @@
 	{
 		const module = name.toLowerCase();
 
-		Nando.load({ path: `/table/cells/${ module }` })
+		Nando.load({ path: `table/cells/${ module }` })
 			.then( () => Nando.table.cells[ module ].init());
 	}
 

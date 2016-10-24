@@ -1,0 +1,40 @@
+{
+	"name": "Offset",
+	"title": "Offset",
+	"description":
+	[
+		"Motion to rotate along the path of the shape.",
+		"Appearance is similar to Orbit, it can be moved on a path which can not be reproduced by Orbit manner.",
+		"Not only circular, for use in a polygon or straight loop is characterized.",
+		"The system is similar to TrimCircle. It can be versatile for use in high variety of situations."
+	],
+	"createMethod": 
+	[
+		"On the web,",
+		"1. Create a path on a SVG element.",
+		"2. Use the stroke-dasharray property to create the pattern to animate",
+		"2. Animate the stroke-dashoffset property with CSS or the animate function on the DOM element."
+	],
+	"application": 
+	[
+		{
+			"description": "1. Combining the Offset and Scale.",
+			"cells":
+			[
+				"Offset",
+				"Scale"
+			],
+			"result": "OffsetPlusScale"
+		}
+	],
+	"samples": 
+	[
+		"OffsetPlusScale"
+	],
+	"similar": 
+	[
+		"Orbit",
+		"Vega",
+		"FlowingLine"
+	]
+}

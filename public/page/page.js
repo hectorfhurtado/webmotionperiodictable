@@ -17,6 +17,18 @@
 		console.log( 'Page#init' );
 
 		backButtonEvent();
+
+		$( '.Page' ).addEventListener( 'click', event =>
+		{
+			const classList = event.target.classList;
+
+			if (classList.contains( 'Page_cell' ) === false) return;
+
+			const [, cellName ] = Array.from( classList );
+
+			window.scroll( 0, 0 );
+			show({ cellName });
+		});
 	}
 
 	/**
@@ -32,7 +44,7 @@
 
 		const cellname = cellName.toLowerCase();
 
-		fetch( `/explanations/${ cellname }.json` )
+		fetch( `explanations/${ cellname }.json` )
 			.then( result => result.json())
 			.then( fillPage );
 
@@ -182,7 +194,7 @@
 				const module = cellName.toLowerCase();
 
 				if (!Nando.page.results[ module ])
-					return Nando.load({ path: `/page/results/${ module }`})
+					return Nando.load({ path: `page/results/${ module }`})
 						.then(() => appendResult({ $pageResult, module }))
 						.catch( error => console.log( error ));
 

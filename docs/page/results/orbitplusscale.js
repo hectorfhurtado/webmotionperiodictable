@@ -27,7 +27,7 @@
 		animate( $orbitPlusScale );
 
 		// Needed for the DOM to settle
-		setTimeout( addScaleCircles.bind( null, $orbitPlusScale ), 100 );
+		setTimeout( addScaleCircles.bind( null, $orbitPlusScale ), 200 );
 	}
 
 	/**

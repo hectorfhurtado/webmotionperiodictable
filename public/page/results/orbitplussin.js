@@ -15,7 +15,7 @@
 	{
 		console.log( 'OrbitPlusSin#appendTo' );
 
-		Nando.loadTemplate({ path: './page/results/orbitplussin' })
+		Nando.loadTemplate({ path: 'page/results/orbitplussin' })
 			.then(() => _appendTo( $orbitPlusSin ));
 	}
 
