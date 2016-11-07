@@ -29,12 +29,12 @@
 	 * All cells are defined relative to table, when loaded we call init which simply add them to its place on the table
 	 * @param	{String}	name
 	 */
-	function loadCels( name )
+	async function loadCels( name )
 	{
 		const module = name.toLowerCase();
 
-		Nando.load({ path: `table/cells/${ module }` })
-			.then( () => Nando.table.cells[ module ].init());
+		await Nando.load({ path: `table/cells/${ module }` });
+		Nando.table.cells[ module ].init();
 	}
 
 	/**
@@ -45,7 +45,9 @@
 	{
 		if (event.target.classList.contains( 'Table_cell') === false) return;
 
-		const [ cellName ] = Array.from( event.target.classList ).filter( classList => classList !== 'Table_cell' ); 
+		const [ cellName ] = Array.from( event.target.classList )
+			.filter( classList => classList !== 'Table_cell' ); 
+		
 		const customEvent  = new CustomEvent( 'cellClicked', { detail: { cellName }});
 
 		this.$table.dispatchEvent( customEvent );

@@ -4,6 +4,10 @@ Inspired on [this](http://foxcodex.html.xdomain.jp/index.html) great work, I wan
 
 It's very much a work in progress on my spare time. You can see my advance [here](https://hectorfhurtado.github.io/webmotionperiodictable/)
 
+### It doesn't runs everywhere yet
+
+I'm using native __async/await__ features, that's why this project (as of today) works on Chrome Canary, Firefox Nightly and Microsoft Edge only (although on Edge it's still not implemented CSS variables). It's just a matter on time when everyone gets it, so, I'm preparing for that. This project seems rather huge and my time is very limited as for now.
+
 ### How to run locally
 
 The only dependency is [nodejs](http://nodejs.org/).

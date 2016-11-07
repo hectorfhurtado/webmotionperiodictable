@@ -23,13 +23,10 @@ window.Nando = (function ()
 		loadTemplate,
 	};
 
-	function main()
+	async function main()
 	{
-		load({ module: 'app' })
-			.then(() =>
-			{
-				Nando.app.init();
-			});
+		await load({ module: 'app' })
+		Nando.app.init();
 	}
 
 	function load({ module = null, path = null })
@@ -69,7 +66,7 @@ window.Nando = (function ()
 		return loading[ scriptSource ];
 	}
 
-	function loadTemplate({ path = null })
+	async function loadTemplate({ path = null })
 	{
 		if (!path) return Promise.reject( 'I need a path to funciton' );
 
