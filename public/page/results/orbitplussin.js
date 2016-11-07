@@ -11,12 +11,12 @@
 
 	const STEP  = 2.544;
 
-	function appendTo( $orbitPlusSin )
+	async function appendTo( $orbitPlusSin )
 	{
 		console.log( 'OrbitPlusSin#appendTo' );
 
-		Nando.loadTemplate({ path: 'page/results/orbitplussin' })
-			.then(() => _appendTo( $orbitPlusSin ));
+		await Nando.loadTemplate({ path: 'page/results/orbitplussin' })
+		_appendTo( $orbitPlusSin );
 	}
 
 	function _appendTo( $orbitPlusSin )

@@ -1,0 +1,20 @@
+.OffsetPlusScale-container 
+{
+	width: 50%;
+	margin: auto;
+	height: 100%;
+	display: flex;
+}
+
+@keyframes growGreenHexagon 
+{
+	from { transformation: scale( 0.5 ); }
+	to   { transformation: scale( 0.9 ); }
+}
+
+.OffsetPlusScale-greeHexagon
+{
+	transform: scale(0.5);
+	fill: #013028;
+	animation: growGreenHexagon 0.5s;
+}
