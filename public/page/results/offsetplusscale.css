@@ -1,20 +1,120 @@
+:root {
+	--animation-duration: 2.5s;
+}
+
 .OffsetPlusScale-container 
 {
-	width: 50%;
-	margin: auto;
-	height: 100%;
-	display: flex;
+	position: relative;
+	display:  flex;
+	
+	width:    50%;
+	margin:   auto;
+	height:   100%;
 }
 
-@keyframes growGreenHexagon 
-{
-	from { transformation: scale( 0.5 ); }
-	to   { transformation: scale( 0.9 ); }
+@keyframes greenHexagon {
+	from { transform: scale(0.5); }
+
+	33%, to { transform: scale(0.9); }
 }
 
-.OffsetPlusScale-greeHexagon
+.OffsetPlusScale-greenHexagon
 {
 	transform: scale(0.5);
-	fill: #013028;
-	animation: growGreenHexagon 0.5s;
+	fill:      #013028;
+	animation: greenHexagon var(--animation-duration) 0s infinite;
 }
+
+.OffsetPlusScale-greenHexagon > svg:not(:first-child),
+.OffsetPlusScale-innerHexagon > svg:not(:first-child),
+.OffsetPlusScale-outerHexagon > svg:not(:first-child) { display: none; }
+
+@keyframes whiteHexagon {
+	from, 33% { transform: scale(0); }
+
+	66%, to { transform: scale(0.9); }
+}
+
+.OffsetPlusScale-innerHexagon,
+.OffsetPlusScale-outerHexagon
+{
+	position:     absolute;
+	top:          0;
+	bottom:       0;
+	left:         0;
+	right:        0;
+
+	fill:         none;
+	stroke:       white;
+	stroke-width: 1;
+
+	animation:    whiteHexagon var(--animation-duration) 0s infinite cubic-bezier(.09,.8,0,1);
+}
+
+@keyframes outerHexagonLine {
+	from, 33% { stroke-dasharray: 0 120; }
+
+	66%, to { stroke-dasharray: 80 40; }
+}
+
+@keyframes outerHexagonMove {
+	from, 66% { stroke-dashoffset: 0; }
+
+	to { stroke-dashoffset: -120; }
+}
+
+.OffsetPlusScale-outerHexagon
+{
+	animation: outerHexagonLine var(--animation-duration) 0s infinite, 
+			   outerHexagonMove var(--animation-duration) 0s infinite cubic-bezier(.09,.8,0,1);
+}
+
+.OffsetPlusScale-flop {
+	display:  flex;
+	position: absolute;
+	top:      0;
+	bottom:   0;
+	left:     0;
+	right:    0;
+}
+
+@keyframes letterAppeareance {
+	from, 65% {
+		opacity:   0;
+		transform: scale(15, 0.3);
+		filter:    blur(2px);
+	}
+
+	66% { opacity: 1; }
+
+	70% { 
+		transform: scale(1);
+		filter:    blur(0); 
+	}
+
+	to {
+		opacity:   1;
+		transform: scale(1);
+		filter:    blur(0); 
+	}
+}
+
+.OffsetPlusScale-flop > div {
+	display: flex;
+	
+	margin: auto;
+	
+	font-family: sans-serif;
+	font-size: 2.5rem;
+	font-weight: bold;
+}
+
+.OffsetPlusScale-flop span:first-child,
+.OffsetPlusScale-flop span:nth-child(2),
+.OffsetPlusScale-flop span:nth-child(3),
+.OffsetPlusScale-flop span:nth-child(4) 
+{ animation: letterAppeareance var(--animation-duration) 0s infinite; }
+
+.OffsetPlusScale-flop span:nth-child(2) { animation-delay: 50ms; }
+.OffsetPlusScale-flop span:nth-child(3) { animation-delay: 100ms; }
+.OffsetPlusScale-flop span:nth-child(4) { animation-delay: 150ms; }
