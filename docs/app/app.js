@@ -9,7 +9,7 @@
 	 * We load al main two components
 	 * Add an event listener for the custom event on table to load information on Page
 	 */
-	function init()
+	async function init()
 	{
 		console.log( 'App#init' );
 
@@ -17,11 +17,11 @@
 		$main.addEventListener( 'cellClicked', cellClickedHandler, true )
 		$main.addEventListener( 'pageBack', pageBackhandler, true )
 
-		Nando.load({ module: 'table' })
-			.then(() => Nando.table.init() );
+		await Nando.load({ module: 'table' })
+		Nando.table.init();
 
-		Nando.load({ module: 'page' })
-			.then( () => Nando.page.init() );
+		await Nando.load({ module: 'page' })
+		Nando.page.init();
 	}
 
 	/**
@@ -44,7 +44,7 @@
 		animateTransition( $page, $table );
 	}
 
-	function animateTransition( $previous, $next, detail = null )
+	async function animateTransition( $previous, $next, detail = null )
 	{
 		const $page  = $( '.Page' );
 		const $table = $( '.Table' );
@@ -60,21 +60,20 @@
 			{ opacity: 0 },
 		], animationProperties )
 
-		previousAnimation.onfinish = function ()
-		{
-			$previous.style.display = 'none';
-			$next.style.display     = 'flex';
+		await previousAnimation.finished; 
 
-			$next.animate([
-				{ opacity: 0 },
-				{ opacity: 1 },
-			], animationProperties );
+		$previous.style.display = 'none';
+		$next.style.display     = 'flex';
 
-			if (!detail) return;
-				
-			const { cellName } = detail;
-			Nando.page.show({ cellName });
-		};
+		$next.animate([
+			{ opacity: 0 },
+			{ opacity: 1 },
+		], animationProperties );
+
+		if (!detail) return;
+			
+		const { cellName } = detail;
+		Nando.page.show({ cellName });
 	}
 
 	Object.assign( Nando, { app: App });

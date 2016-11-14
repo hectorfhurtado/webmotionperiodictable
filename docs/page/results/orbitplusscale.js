@@ -10,12 +10,12 @@
 	 * We can append this html on any element and then call its animation method
 	 * @param	{Object}	$orbitPlusScale	A DOMElement reference
 	 */
-	function appendTo( $orbitPlusScale )
+	async function appendTo( $orbitPlusScale )
 	{
 		console.log( 'OrbitPlusScale#appendTo' );
 
-		Nando.loadTemplate({ path: 'page/results/orbitplusscale' })
-			.then(() => _appendTo( $orbitPlusScale ));
+		await Nando.loadTemplate({ path: 'page/results/orbitplusscale' })
+		_appendTo( $orbitPlusScale );
 	}
 
 	function _appendTo( $orbitPlusScale )

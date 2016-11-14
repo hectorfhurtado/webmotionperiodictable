@@ -34,7 +34,7 @@
 	/**
 	 * We fetch JSON information for clicked cell and start position received information on screen
 	 */
-	function show({ cellName })
+	async function show({ cellName })
 	{
 		if ($( '.Page .Page_title' ).textContent == cellName)
 		{
@@ -44,10 +44,10 @@
 
 		const cellname = cellName.toLowerCase();
 
-		fetch( `page/explanations/${ cellname }.json` )
-			.then( result => result.json())
-			.then( fillPage );
-
+		const resultJson = await fetch( `page/explanations/${ cellname }.json` );
+		const result     = await resultJson.json();
+			
+		fillPage( result );
 		hideAllGroups();
 
 		const $pageName = $( '.Page_name' );
@@ -185,18 +185,30 @@
 				const PageResult =
 				{
 					$pageResult,
-					cellName: Array.from( $pageResult.classList ).filter( classlist => classlist != 'Page_result' )[ 0 ]
+					cellName: Array.from( $pageResult.classList )
+						.filter( classlist => classlist != 'Page_result' )[ 0 ]
 				};
+
 				return PageResult; 
 			})
-			.forEach( ({ $pageResult, cellName }) =>
+			.forEach( async function({ $pageResult, cellName })
 			{
 				const module = cellName.toLowerCase();
 
 				if (!Nando.page.results[ module ])
-					return Nando.load({ path: `page/results/${ module }`})
-						.then(() => appendResult({ $pageResult, module }))
-						.catch( error => console.log( error ));
+				{
+					try 
+					{
+						await Nando.load({ path: `page/results/${ module }`});
+						appendResult({ $pageResult, module });
+					}
+					catch( error )
+					{
+						console.log( error );
+					}
+
+					return;
+				}
 
 				return appendResult({ $pageResult, module });
 			});

@@ -21,15 +21,10 @@
 		`
 		${ insertStyles() }
 		<div class="Cell_canvas">
-			<svg class="Offset_hexagon" width="100%" height="100%" viewBox="0 0 100 100" >
-				<g>
-					<path d="M50,10 L84.64,30 84.64,70 50,90 15.36,70 15.36,30 Z"></path>
-				</g>
-			</svg>
+			${ insertHexagon() }
 		</div>
 		<h2>Offset</h2>
 		`;
-
 
 		animate( $container.querySelector( '.Offset_hexagon' ));
 	}
@@ -52,6 +47,13 @@
 		`;
 
 		return styles;
+	}
+
+	function insertHexagon()
+	{
+		const $hexagon = document.getElementById( 'HexagonSvg' );
+
+		return $hexagon.innerHTML.replace( '<svg', '<svg class="Offset_hexagon"' );
 	}
 
 	function animate( $hexagon )
