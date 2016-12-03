@@ -1,5 +1,5 @@
-:root {
-	--animation-duration: 2.5s;
+:host {
+	--animation-duration: 2.3s;
 }
 
 .OffsetPlusScale-container 
@@ -66,7 +66,7 @@
 .OffsetPlusScale-outerHexagon
 {
 	animation: outerHexagonLine var(--animation-duration) 0s infinite, 
-			   outerHexagonMove var(--animation-duration) 0s infinite cubic-bezier(.09,.8,0,1);
+			   outerHexagonMove var(--animation-duration) 0s infinite cubic-bezier(0.51, 1.09, 0.01, 0.99);
 }
 
 .OffsetPlusScale-flop {

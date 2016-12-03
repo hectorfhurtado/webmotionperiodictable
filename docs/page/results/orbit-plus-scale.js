@@ -1,39 +1,36 @@
 (function ()
 {
-	// Exported functions
-	const OrbitPlusScale =
+	class OrbitPlusScale extends HTMLElement 
 	{
-		appendTo,
-	};
+		constructor()
+		{
+			super();
+			console.log( 'OrbitPlusScale#constructor' );
 
-	/**
-	 * We can append this html on any element and then call its animation method
-	 * @param	{Object}	$orbitPlusScale	A DOMElement reference
-	 */
-	async function appendTo( $orbitPlusScale )
-	{
-		console.log( 'OrbitPlusScale#appendTo' );
+			let shadow = this.attachShadow({ mode: 'open' });
 
-		await Nando.loadTemplate({ path: 'page/results/orbitplusscale' })
-		_appendTo( $orbitPlusScale );
+			loadTemplate( shadow );
+		}
 	}
 
-	function _appendTo( $orbitPlusScale )
+	async function loadTemplate( shadow )
 	{
+		await Nando.loadTemplate({ path: 'page/results/orbit-plus-scale' })
+
 		const $template = $( '#orbitplusscale_template' );
 		const $clone    = document.importNode( $template.content, true );
 
-		$orbitPlusScale.appendChild( $clone );
-		animate( $orbitPlusScale );
+		shadow.appendChild( $clone );
+		animate( shadow );
 
 		// Needed for the DOM to settle
-		setTimeout( addScaleCircles.bind( null, $orbitPlusScale ), 200 );
+		setTimeout( addScaleCircles.bind( null, shadow ), 200 );
 	}
 
 	/**
 	 * We rotate passed element every 3 seconds
 	 */
-	function animate( $orbitPlusScale )
+	function animate( shadow )
 	{
 		const turns = 
 		[
@@ -41,13 +38,13 @@
 			{ transform: 'rotate( 1turn )' },
 		];
 
-		$( '.OrbitPlusScale_outer_ring', $orbitPlusScale ).animate( turns,
+		$( '.OrbitPlusScale_outer_ring', shadow ).animate( turns,
 		{
 			duration: 3000,
 			iterations: Infinity,
 		});
 
-		$$( '.OrbitPlusScale_outer_ring_p2', $orbitPlusScale ).forEach(( $ring, index ) =>
+		$$( '.OrbitPlusScale_outer_ring_p2', shadow ).forEach(( $ring, index ) =>
 		{
 			$ring.animate( turns,
 			{
@@ -56,7 +53,7 @@
 			});
 		});
 
-		$$( '.OrbitPlusScale_outer_ring_p3', $orbitPlusScale ).forEach(( $ring, index ) =>
+		$$( '.OrbitPlusScale_outer_ring_p3', shadow ).forEach(( $ring, index ) =>
 		{
 			$ring.animate( turns,
 			{
@@ -66,12 +63,12 @@
 		});
 	}
 
-	function addScaleCircles( $orbitPlusScale )
+	function addScaleCircles( shadow )
 	{
 		const NUMBER_OF_CIRCLES = 4;
 		const TOTAL_DURATION    = 5000;
 
-		$$( '.OrbitPlusScale_scaled_container', $orbitPlusScale ).forEach( $container =>
+		$$( '.OrbitPlusScale_scaled_container', shadow ).forEach( $container =>
 		{
 			const { width, height } = $container.getBoundingClientRect();
 
@@ -137,5 +134,5 @@
 		});
 	}
 
-	Object.assign( Nando.page.results, { orbitplusscale: OrbitPlusScale });
+	customElements.define( 'orbit-plus-scale', OrbitPlusScale );
 })();

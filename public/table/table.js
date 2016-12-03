@@ -6,35 +6,35 @@
 		'Offset',
 	];
 
-	const Table =
-	{
-		init,
-		cells: {},
-	};
+	class Table extends HTMLElement {
 
-	/**
-	 * Takes a reference for the table, add an event listener and load all cells
-	 */
-	function init()
-	{
-		console.log('Table#init');
+		constructor()
+		{
+			super();
 
-		this.$table = document.querySelector( '.Table' );
-		this.$table.addEventListener( 'click', cellClickEventHandler.bind( this ), false );
+			this.shadow          = this.attachShadow({ mode: 'open' });
+			const $tableTemplate = $( '#Table-template' );
 
-		Names.forEach( loadCels );
+			this.shadow.appendChild( document.importNode( $tableTemplate.content, true ));
+			$tableTemplate.parentNode.removeChild( $tableTemplate );
+
+			Names.forEach( loadCells );
+		}
+
+		connectedCallback()
+		{
+			this.shadow.addEventListener( 'click', cellClickEventHandler.bind( this ), false );
+		}
 	}
 
 	/**
 	 * All cells are defined relative to table, when loaded we call init which simply add them to its place on the table
 	 * @param	{String}	name
 	 */
-	async function loadCels( name )
+	async function loadCells( name )
 	{
 		const module = name.toLowerCase();
-
 		await Nando.load({ path: `table/cells/${ module }` });
-		Nando.table.cells[ module ].init();
 	}
 
 	/**
@@ -43,15 +43,11 @@
 	 */
 	function cellClickEventHandler( event )
 	{
-		if (event.target.classList.contains( 'Table_cell') === false) return;
+		const cellName    = event.target.tagName.toLowerCase().replace( '-cell', '' );
+		const customEvent = new CustomEvent( 'cellClicked', { detail: { cellName }, composed: true });
 
-		const [ cellName ] = Array.from( event.target.classList )
-			.filter( classList => classList !== 'Table_cell' ); 
-		
-		const customEvent  = new CustomEvent( 'cellClicked', { detail: { cellName }});
-
-		this.$table.dispatchEvent( customEvent );
+		this.dispatchEvent( customEvent );
 	}
 
-	Object.assign( Nando, { table: Table });
+	customElements.define( 'motion-table', Table );
 })();

@@ -1,44 +1,35 @@
 (function ()
 {
-	// Exported functions
-	const Orbit =
-	{
-		init,
-		appendTo,
-	};
+	let shadowRoot = null;
 
-	/**
-	 * We append this HTML onto the corresponding cell on the table 
-	 */
-	function init()
-	{
-		console.log('Orbit#init');
+	class Orbit extends HTMLElement {
 
-		appendTo( Nando.table.$table.querySelector( '.Orbit' ));
-	}
+		constructor()
+		{
+			super();
 
-	/**
-	 * We can append this html on any element and then call its animation method
-	 * @param	{Object}	$orbit	A DOMElement reference
-	 */
-	function appendTo( $orbit )
-	{
-		const { width } = $orbit.getBoundingClientRect();
+			shadowRoot = this.attachShadow({ mode: 'open' });
+		}
 
-		$orbit.innerHTML = 
-		`
-		${ insertStyles() }
-		<div class="Cell_canvas">
-			<div 
-				class="Orbit_outer_circle" 
-				style="height: ${ width * 0.6 }px; width: ${ width * 0.6 }px;"
-			>
+		connectedCallback()
+		{
+			const { width } = this.parentNode.getBoundingClientRect();
+
+			shadowRoot.innerHTML =
+			`
+			${ insertStyles() }
+			<div class="Cell_canvas">
+				<div 
+					class="Orbit_outer_circle"
+					style="height: ${ width * 0.6 }px; width: ${ width * 0.6 }px;"
+				>
+				</div>
 			</div>
-		</div>
-		<h2>Orbit</h2>
-		`;
+			<cell-title>Orbit</cell-title>
+			`;
 
-		animate( $orbit.querySelector( '.Orbit_outer_circle' ));
+			animate( shadowRoot.querySelector( '.Orbit_outer_circle' ));
+		}
 	}
 
 	/**
@@ -52,6 +43,16 @@
 		const styles =
 		`
 		<style>
+			:host {
+				width:    100%;
+				height:   100%;
+				display:  block;
+				position: absolute;
+				top:      0;
+				bottom:   0;
+				left:     0;
+				right:    0;
+			}
 			.Orbit_outer_circle
 			{
 				border:        solid thin var( --line-dimmed );
@@ -97,5 +98,5 @@
 		});
 	}
 
-	Object.assign( Nando.table.cells, { orbit: Orbit });
+	customElements.define( 'orbit-cell', Orbit );
 })();

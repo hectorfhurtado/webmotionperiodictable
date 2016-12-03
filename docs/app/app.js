@@ -1,9 +1,24 @@
 (function ()
 {
-	const App =
-	{
-		init,
-	};
+	let shadow = null;
+
+	class App extends HTMLElement {
+
+		constructor()
+		{
+			super();
+
+			shadow = this.attachShadow({ mode: 'open' });
+
+			shadow.innerHTML = `
+				<motion-table style="height: 100%;"></motion-table>
+				<motion-page style="display: none;"></motion-page>
+			`;
+
+			init();
+		}
+
+	}
 
 	/**
 	 * We load al main two components
@@ -12,16 +27,13 @@
 	async function init()
 	{
 		console.log( 'App#init' );
-
-		const $main = document.querySelector( 'main' );
-		$main.addEventListener( 'cellClicked', cellClickedHandler, true )
-		$main.addEventListener( 'pageBack', pageBackhandler, true )
-
-		await Nando.load({ module: 'table' })
-		Nando.table.init();
-
+		
+		await Nando.load({ module: 'table' });
+		await Nando.load({ path: 'table/title' });
 		await Nando.load({ module: 'page' })
-		Nando.page.init();
+
+		this.addEventListener( 'cellClicked', cellClickedHandler, true )
+		this.addEventListener( 'pageBack', pageBackhandler, true )
 	}
 
 	/**
@@ -30,25 +42,23 @@
 	 */
 	function cellClickedHandler( event )
 	{
-		const $page  = $( '.Page' );
-		const $table = $( '.Table' );
+		const $page  = $( 'motion-page', shadow );
+		const $table = $( 'motion-table', shadow );
 
-		animateTransition( $table, $page, event.detail )
+		$page.setAttribute( 'show', event.detail.cellName );
+		animateTransition( $table, $page )
 	}
 
 	function pageBackhandler()
 	{
-		const $page  = $( '.Page' );
-		const $table = $( '.Table' );
+		const $page  = $( 'motion-page', shadow );
+		const $table = $( 'motion-table', shadow );
 
 		animateTransition( $page, $table );
 	}
 
-	async function animateTransition( $previous, $next, detail = null )
+	async function animateTransition( $previous, $next )
 	{
-		const $page  = $( '.Page' );
-		const $table = $( '.Table' );
-
 		const animationProperties =
 		{
 			duration: 300,
@@ -69,12 +79,7 @@
 			{ opacity: 0 },
 			{ opacity: 1 },
 		], animationProperties );
-
-		if (!detail) return;
-			
-		const { cellName } = detail;
-		Nando.page.show({ cellName });
 	}
 
-	Object.assign( Nando, { app: App });
+	customElements.define( 'motion-periodic-table', App );
 })();

@@ -3,15 +3,16 @@
 {
 	display:        flex;
 	flex-direction: column;
-    padding:        3rem 2rem;
+    padding:        1.5rem 2rem;
 }
 
 .OrbitPlusSin_dotted
 {
-	border-top: dashed var( --line-dimmed );
+	position:   relative;
 	height:     100%;
 	margin-top: 2rem; 
-	position:   relative;
+	
+	border-top: dashed var( --line-dimmed );
 }
 
 .OrbitPlusSin_semicircle,
@@ -22,6 +23,7 @@
 	width:    11.25rem;
 	height:   10.25rem;
 	left:     calc(5.125rem - 2px);
+	
 	overflow: hidden;
 }
 
@@ -29,75 +31,72 @@
 {
 	content:       '';
 	position:      absolute;
-	border-radius: 50%;
 	top:           -5.125rem;
 	left:          0;
+	
 	width:         10.25rem;
-	height:   10.25rem;
+	height:        10.25rem;
+	
+	border-radius: 50%;
 	border:        solid var(--line-dimmed );
-}
-
-@keyframes pendulumOscillation 
-{
-	from
-	{
-		transform: rotate( 0 );
-	}
-
-	to
-	{
-		transform: rotate( -158deg );
-	}
 }
 
 .OrbitPlusSin_pendulum
 {
 	position:      absolute;
-	border-radius: 50%;
 	top:           -5.125rem;
 	left:          5.125rem;
+
 	width:         10.25rem;
-	height:   10.25rem;
-	animation:        pendulumOscillation 1s ease-in-out alternate infinite;
+	height:        10.25rem;
+
+	border-radius: 50%;
 }
 
 .OrbitPlusSin_pendulum::before,
 .OrbitPlusSin_pendulum::after 
 {
-    content: '';
-    position: absolute;
+    content:          '';
+    position:         absolute;
+    top:              calc( 50% - 0.25rem);
+    left:             calc( 50% - 0.25rem);
+    
+	width:            0.5rem;
+    height:           0.5rem;
+    
+	border-radius:    50%;
     background-color: var( --line-dimmed );
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    top: calc( 50% - 0.25rem);
-    left: calc( 50% - 0.25rem);
 }
 
 .OrbitPlusSin_pendulum::after
 {
-	width:  2rem;
-	height: 2rem;
 	top:    50%;
 	left:   -1rem;
+	
+	width:  2rem;
+	height: 2rem;
 }
 
 
 .OrbitPlusSin_pendulum > div 
 {
-    width:            6.125rem;
-    border:           solid thin;
     position:         absolute;
     top:              calc(50% - 1px);
     left:             0.85rem;
-    transform-origin: 4.125rem 0;
+    
+	width:            6.125rem;
+    
+	border:           solid thin;
+    
+	transform-origin: 4.125rem 0;
     transform:        rotate(-10deg);
 }
 
 .OrbitPlusSin_label
 {
+	position:  absolute;
+	top:       0;
+	left:      0;
+	
 	font-size: 0.7rem;
-	position: absolute;
-	top: 0;
-	left: 0;
 }

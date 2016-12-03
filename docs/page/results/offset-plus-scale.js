@@ -1,26 +1,23 @@
 (function ()
 {
-	// Exported functions
-	const OffsetPlusScale =
+	class OffsetPlusScale extends HTMLElement
 	{
-		appendTo,
-	};
+		constructor()
+		{
+			super();
 
-	async function appendTo( $container )
-	{
-		console.log( 'offsetPlusScale#appendTo' );
+			console.log( 'offsetPlusScale#constructor' );
 
-		await Nando.loadTemplate({ path: 'page/results/offsetplusscale' })
-		_appendTo( $container );
+			let shadow = this.attachShadow({ mode: 'open' });
+
+			appendTeamplate( shadow );
+		}
 	}
 
-	/**
-	 * We append an hexagon to every container to apply them its animation
-	 * @param	{Object}	$container
-	 * @private
-	 */
-	function _appendTo( $container )
+	async function appendTeamplate( shadow )
 	{
+		await Nando.loadTemplate({ path: 'page/results/offset-plus-scale' })
+
 		const $offsetTemplate  = $( '#offsetplusscale_template' );
 		const $hexagonTemplate = $( '#HexagonSvg' );
 
@@ -33,8 +30,8 @@
 		$offsetTemplate.content.querySelector( '.OffsetPlusScale-outerHexagon' )
 			.appendChild( document.importNode( $hexagonTemplate.content, true ));
 
-		$container.appendChild( document.importNode( $offsetTemplate.content, true ));
+		shadow.appendChild( document.importNode( $offsetTemplate.content, true ));
 	}
 
-	Object.assign( Nando.page.results, { offsetplusscale: OffsetPlusScale });
+	customElements.define( 'offset-plus-scale', OffsetPlusScale );
 })();

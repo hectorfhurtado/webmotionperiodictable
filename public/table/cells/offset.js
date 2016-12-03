@@ -1,21 +1,20 @@
 (function ()
 {
-	const Offset =
+	class Offset extends HTMLElement 
 	{
-		init,
-		appendTo,
-	};
+		constructor()
+		{
+			super();
 
-	function init()
-	{
-		console.log( 'Offset#init' );
+			let shadow = this.attachShadow({ mode: 'open' });
 
-		appendTo( Nando.table.$table.querySelector( '.Offset' ));
+			appendTo( shadow );
+		}
 	}
 
 	function appendTo( $container )
 	{
-		console.log( 'Offset#');
+		console.log( 'Offset#appendTo' );
 
 		$container.innerHTML =
 		`
@@ -23,7 +22,7 @@
 		<div class="Cell_canvas">
 			${ insertHexagon() }
 		</div>
-		<h2>Offset</h2>
+		<cell-title>Offset</cell-title>
 		`;
 
 		animate( $container.querySelector( '.Offset_hexagon' ));
@@ -35,6 +34,7 @@
 		`
 		<style>
 			.Offset_hexagon {
+				margin-top:       20%;
 				fill:             none;
 				stroke:           var( --app-color );
 				stroke-width:     8;
@@ -69,5 +69,5 @@
 		});
 	}
 
-	Object.assign( Nando.table.cells, { offset: Offset });
+	customElements.define( 'offset-cell', Offset );
 })();

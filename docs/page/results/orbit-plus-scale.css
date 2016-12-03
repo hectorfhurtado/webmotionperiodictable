@@ -1,11 +1,12 @@
-:root {
+:host {
 	--square-side: calc( 25rem / 3 );
 }
 
 .OrbitPlusScale_container
 {
-	display: flex;
+	display:        flex;
 	flex-direction: row;
+	height:         100%;
 }
 
 .OrbitPlusScale_container > div

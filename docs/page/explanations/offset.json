@@ -24,12 +24,12 @@
 				"Offset",
 				"Scale"
 			],
-			"result": "OffsetPlusScale"
+			"result": "offset-plus-scale"
 		}
 	],
 	"samples": 
 	[
-		"OffsetPlusScale"
+		"offset-plus-scale"
 	],
 	"similar": 
 	[

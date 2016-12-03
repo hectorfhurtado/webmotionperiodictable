@@ -1,34 +1,41 @@
 (function ()
 {
-	let cache = {};
+	let shadow = null;
 
-	const Page =
-	{
-		init,
-		show,
-		results: {},
-	};
+	class Page extends HTMLElement {
 
-	/**
-	 * Just show we loaded it successfully
-	 */
-	function init()
-	{
-		console.log( 'Page#init' );
-
-		backButtonEvent();
-
-		$( '.Page' ).addEventListener( 'click', event =>
+		constructor()
 		{
-			const classList = event.target.classList;
+			super();
 
-			if (classList.contains( 'Page_cell' ) === false) return;
+			console.log( 'Page#init' );
 
-			const [, cellName ] = Array.from( classList );
+			shadow              = this.attachShadow({ mode: 'open' });
+			const $pageTemplate = $( '#Page-template' );
 
-			window.scroll( 0, 0 );
-			show({ cellName });
-		});
+			shadow.appendChild( document.importNode( $pageTemplate.content, true ));
+			$pageTemplate.parentNode.removeChild( $pageTemplate );
+		}
+
+		static get observedAttributes()
+		{
+			return [ 'show' ];
+		}
+
+		attributeChangedCallback( name, oldValue, newValue ) 
+		{
+			if (name == 'show' && newValue)
+			{
+				window.scroll( 0, 0 );
+				show({ cellName: newValue });
+			}
+		}
+
+		connectedCallback()
+		{
+			$( '.Page_back', shadow ).addEventListener( 'click', pageBackClickHandler, true );
+			shadow.addEventListener( 'click', pageClickHandler, true );
+		}
 	}
 
 	/**
@@ -36,22 +43,20 @@
 	 */
 	async function show({ cellName })
 	{
-		if ($( '.Page .Page_title' ).textContent == cellName)
+		if ($( '.Page .Page_title', shadow ).textContent == cellName)
 		{
 			revealAllGroups();
 			return null;
 		}
 
-		const cellname = cellName.toLowerCase();
-
-		const resultJson = await fetch( `page/explanations/${ cellname }.json` );
+		const resultJson = await fetch( `page/explanations/${ cellName }.json` );
 		const result     = await resultJson.json();
 			
-		fillPage( result );
 		hideAllGroups();
+		fillPage( result );
 
-		const $pageName = $( '.Page_name' );
-		Nando.table.cells[ cellname ].appendTo( $pageName );
+		const $pageName = $( '.Page_name', shadow );
+		$pageName.innerHTML = `<${ cellName }-cell></${ cellName }-cell>`;
 	}
 
 	/**
@@ -62,22 +67,26 @@
 	{
 		const { title, description, createMethod, application, samples, similar } = information;
 
-		$( '.Page_title' ).innerHTML        = title;
-		$( '.Page_description' ).innerHTML  = description.map( line => `<p>${ line }</p>` ).join( '' );
-		$( '.Page_createMethod' ).innerHTML = createMethod.map( line => `<p>${ line }</p>` ).join( '' );
+		$( '.Page_title', shadow ).innerHTML        = title;
+		$( '.Page_description', shadow ).innerHTML  = description.map( line => `<p>${ line }</p>` ).join( '' );
+		$( '.Page_createMethod', shadow ).innerHTML = createMethod.map( line => `<p>${ line }</p>` ).join( '' );
 
+		loadSamples( samples );
 		renderApplication( application );
 		renderSamples( samples );
 		renderSimilar( similar );
 
 		revealAllGroups();
-		applyCells();
-		applyResults();
+	}
+
+	async function loadSamples( samples )
+	{
+		await samples.map( sample => Nando.load({ path: `page/results/${ sample }` }));
 	}
 
 	function hideAllGroups()
 	{
-		$$( '.Page_group' ).forEach( $pageGroup => $pageGroup.style.opacity = 0 );
+		$$( '.Page_group', shadow ).forEach( $pageGroup => $pageGroup.style.opacity = 0 );
 	}
 
 	function revealAllGroups()
@@ -95,7 +104,7 @@
 			duration: 300,
 		};
 
-		$$( '.Page_group' ).forEach(( $pageGroup, index ) =>
+		$$( '.Page_group', shadow ).forEach(( $pageGroup, index ) =>
 		{
 			options.delay = 300 * index;
 
@@ -109,14 +118,16 @@
 	 */
 	function renderApplication( application )
 	{
-		$( '.Page_application' ).innerHTML = application.map( function (app)
+		$( '.Page_application', shadow ).innerHTML = application.map( function (app)
 		{
 			let markup = `
 				<p>${ app.description }</p>
 				<div class="Page_application_cells horizontal">
 					${ inserPageCells( app.cells ) }
 					<div class="plus">&#9658;</div>
-					<div class="Page_result ${ app.result }"></div>					
+					<div class="Page_result ${ app.result }">
+						<${ app.result }></${ app.result }>
+					</div>					
 				</div>`;
 
 			return markup;
@@ -131,104 +142,51 @@
 	function inserPageCells( cells )
 	{
 		return cells
-			.map( cell => `<div class="Page_cell ${ cell }"></div>` )
+			.map( cellName => 
+			`<div class="Page_cell ${ cellName }">
+				<${ cellName }-cell></${ cellName }-cell>
+			</div>
+			` )
 			.join( '<div class="plus">+</div>' );
 	}
 
 	function renderSamples( samples )
 	{
-		$( '.Page_samples' ).innerHTML = samples
-			.reduce(( previousCell, currentCell ) => `${ previousCell }<div class="Page_result ${ currentCell }"></div>`, '' );
+		$( '.Page_samples', shadow ).innerHTML = samples
+			.reduce(( previousCell, currentCell ) => `${ previousCell }
+				<div class="Page_result">
+					<${ currentCell }></${ currentCell }>
+				</div>
+			`, '' );
 	}
 
 	function renderSimilar( similar )
 	{
-		$( '.Page_similar' ).innerHTML = similar
-			.reduce(( previousCell, currentCell ) => `${ previousCell }<div class="Page_cell ${ currentCell }"></div>`, '' ); 
+		$( '.Page_similar', shadow ).innerHTML = similar
+			.reduce(( previousCell, currentCell ) => `${ previousCell }
+				<div class="Page_cell">
+					<${ currentCell }-cell></${ currentCell }-cell>
+				</div>
+			`, '' ); 
 	}
 
-	/**
-	 * Once all Page cells graphics are inserted, we look for all these elements and start rendering them based on their
-	 * classes
-	 */
-	function applyCells()
+	function pageBackClickHandler ()
 	{
-		$$( '.Page .Page_cell' )
-			.filter( $pageCell => $pageCell.classList.contains( 'Page_name' ) === false )
-			.map( $pageCell =>
-			{
-				const PageCell =
-				{
-					$pageCell,
-					cellName: Array.from( $pageCell.classList ).filter( classlist => classlist != 'Page_cell' )[ 0 ]
-				};
-				return PageCell; 
-			})
-			.forEach( ({ $pageCell, cellName }) =>
-			{
-				try
-				{
-					Nando.table.cells[ cellName.toLowerCase() ].appendTo( $pageCell );
-				}
-				catch( e )
-				{
-					console.log( `${ cellName } not yet implemented` );
-				}
-			});
+		const customEvent  = new CustomEvent( 'pageBack', { composed: true });
+
+		this.dispatchEvent( customEvent );
+		hideAllGroups();
 	}
 
-	function applyResults()
+	function pageClickHandler( event )
 	{
-		$$( '.Page .Page_result' )
-			.map( $pageResult =>
-			{
-				const PageResult =
-				{
-					$pageResult,
-					cellName: Array.from( $pageResult.classList )
-						.filter( classlist => classlist != 'Page_result' )[ 0 ]
-				};
-
-				return PageResult; 
-			})
-			.forEach( async function({ $pageResult, cellName })
-			{
-				const module = cellName.toLowerCase();
-
-				if (!Nando.page.results[ module ])
-				{
-					try 
-					{
-						await Nando.load({ path: `page/results/${ module }`});
-						appendResult({ $pageResult, module });
-					}
-					catch( error )
-					{
-						console.log( error );
-					}
-
-					return;
-				}
-
-				return appendResult({ $pageResult, module });
-			});
-	}
-
-	function appendResult({ $pageResult, module })
-	{
-		Nando.page.results[ module ].appendTo( $pageResult );
-	}
-
-	function backButtonEvent()
-	{
-		$( '.Page_back' ).addEventListener( 'click', event =>
+		if (event.target && /-cell$/i.test( event.target.tagName ))
 		{
-			const customEvent  = new CustomEvent( 'pageBack' );
+			const cellName = event.target.tagName.toLowerCase().replace( '-cell', '' );
 
-			$( '.Page' ).dispatchEvent( customEvent );
-			hideAllGroups();
-		}, true );
+			this.host.setAttribute( 'show', cellName );
+		}
 	}
 
-	Object.assign( Nando, { page: Page });
+	customElements.define( 'motion-page', Page ); 
 })();

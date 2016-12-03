@@ -9,16 +9,21 @@
 		<path d="M50,10 L84.64,30 84.64,70 50,90 15.36,70 15.36,30 Z"></path>
 	</svg>
 </template>
-
-<main>
+<template id="Table-template">
+	<link rel="stylesheet" href="table/table.css">
 	<div class="Table">
 		<div class="Table_row">
-			<div class="Orbit Table_cell"></div>
-			<div class="Table_cell_grow"></div>
+			<div class="Orbit Table_cell">
+				<orbit-cell></orbit-cell>
+			</div>
+			<div class="Table_cell_grow">
+			</div>
 			<div class="Fractal_noise Table_cell"></div>
 		</div>
 		<div class="Table_row">
-			<div class="Offset Table_cell"></div>
+			<div class="Offset Table_cell">
+				<offset-cell></offset-cell>
+			</div>
 			<div class="LineWeight Table_cell"></div>
 			<div class="Table_cell_grow Table_title">
 				<p>MOTION</p>
@@ -62,6 +67,9 @@
 			<div class="Noise Table_cell"></div>
 		</div>
 	</div>
+</template>
+<template id="Page-template">
+	<link rel="stylesheet" href="page/page.css">
 	<div class="Page">
 		<button class="Page_back">Back</button>
 		<div class="horizontal">
@@ -95,6 +103,8 @@
 		</div>
 		<div class="Page_end"></div>
 	</div>
-</main>
+</template>
+
+<motion-periodic-table></motion-periodic-table>
 
 <script src="index.js"></script>

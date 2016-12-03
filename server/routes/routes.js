@@ -27,7 +27,7 @@ module.exports = ( req, res ) =>
         fs.createReadStream( path.join( __dirname, PUBLIC + URL )).pipe( res );
 
     // templates
-    if (/\/results\/\w+\.html/.test( URL ))
+    if (/\/results\/[\w\-_]+\.html/.test( URL ))
         fs.createReadStream( path.join( __dirname, PUBLIC + URL )).pipe( res );
 
     // .ico

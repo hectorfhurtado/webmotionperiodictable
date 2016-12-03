@@ -22,7 +22,7 @@
 				"Orbit",
 				"Scale"
 			],
-			"result": "OrbitPlusScale"
+			"result": "orbit-plus-scale"
 		},
 		{
 			"description": "2. The combined motion and the motion of the Sin of Orbit shifted the base point.",
@@ -31,13 +31,13 @@
 				"Orbit",
 				"Sin"
 			],
-			"result": "OrbitPlusSin"
+			"result": "orbit-plus-sin"
 		}
 	],
 	"samples": 
 	[
-		"OrbitPlusScale",
-		"OrbitPlusSin"
+		"orbit-plus-scale",
+		"orbit-plus-sin"
 	],
 	"similar": 
 	[

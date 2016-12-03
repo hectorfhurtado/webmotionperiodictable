@@ -26,7 +26,6 @@ window.Nando = (function ()
 	async function main()
 	{
 		await load({ module: 'app' })
-		Nando.app.init();
 	}
 
 	function load({ module = null, path = null })
@@ -34,13 +33,14 @@ window.Nando = (function ()
 		let scriptSource = '';
 
 		if (path)
+		{
 			scriptSource = path + '.js';
 
+			if (loading[ scriptSource ])  return loading[ scriptSource ];
+		}
 		else if (module)
 		{
-			if (!!Nando[ module ])
-				return Promise.resolve();
-
+			if (!!Nando[ module ]) return Promise.resolve();
 			else scriptSource = `${ module }/${ module }.js`; 
 		}
 		else return Promise.reject( 'I do not have a path or module to work with' );
@@ -56,7 +56,6 @@ window.Nando = (function ()
 			$script.addEventListener( 'load', () => 
 			{
 				$head.removeChild( $script );
-				delete loading[ scriptSource ];
 				resolve();
 			}, { once: true });
 
