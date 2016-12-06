@@ -4,6 +4,7 @@
 	[
 		'Orbit',
 		'Offset',
+		'Vegas',
 	];
 
 	class Table extends HTMLElement {
