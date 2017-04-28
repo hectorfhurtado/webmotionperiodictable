@@ -13,10 +13,10 @@
 		{
 			super();
 
-			this.shadow          = this.attachShadow({ mode: 'open' });
+			let shadow          = this.attachShadow({ mode: 'open' });
 			const $tableTemplate = $( '#Table-template' );
 
-			this.shadow.appendChild( document.importNode( $tableTemplate.content, true ));
+			shadow.appendChild( document.importNode( $tableTemplate.content, true ));
 			$tableTemplate.parentNode.removeChild( $tableTemplate );
 
 			Names.forEach( loadCells );
@@ -24,7 +24,7 @@
 
 		connectedCallback()
 		{
-			this.shadow.addEventListener( 'click', cellClickEventHandler.bind( this ), false );
+			this.shadowRoot.addEventListener( 'click', cellClickEventHandler.bind( this ), false );
 		}
 	}
 

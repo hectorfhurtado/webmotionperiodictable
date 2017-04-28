@@ -1,21 +1,19 @@
 (function ()
 {
-	let shadowRoot = null;
-
 	class Orbit extends HTMLElement {
 
 		constructor()
 		{
 			super();
 
-			shadowRoot = this.attachShadow({ mode: 'open' });
+			this.attachShadow({ mode: 'open' });
 		}
 
 		connectedCallback()
 		{
 			const { width } = this.parentNode.getBoundingClientRect();
 
-			shadowRoot.innerHTML =
+			this.shadowRoot.innerHTML =
 			`
 			${ insertStyles() }
 			<div class="Cell_canvas">
@@ -28,7 +26,7 @@
 			<cell-title>Orbit</cell-title>
 			`;
 
-			animate( shadowRoot.querySelector( '.Orbit_outer_circle' ));
+			animate( this.shadowRoot.querySelector( '.Orbit_outer_circle' ));
 		}
 	}
 
