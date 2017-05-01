@@ -1,0 +1,47 @@
+{
+	"name": "Vegas",
+	"title": "Vegas",
+	"description":
+	[
+		"An effect that runs light along a path.",
+		"It is similar to TrimLine and Offset, but it has features that you can adjust the opacity of the start point, the middle point, and the end point. Also, the number of divisions of the line can be freely determined.",
+		"Although it is low in frequency of use, it is optimal for expressing lines of light."
+	],
+	"createMethod": 
+	[
+		"If you want to use in Aftereffects,",
+		"1. When using with aftereffects, apply \"effect\" / \"drawing\" / \"Vegas\" to the plane layer minus mask pass. Please note that it can not be applied to shape layers."
+	],
+	"application": 
+	[
+		{
+			"description": "1. Create a path like electrocardiogram. From applying Vegas, I am wearing glow.",
+			"cells":
+			[
+				"Vegas",
+				"Glow"
+			],
+			"result": "vegas-plus-glow"
+		},
+		{
+			"description": "2. Applied usage of Vegas. Express something like a rotating reactor of light. Each layer with a different Vegas effect is moved at different speeds.",
+			"cells":
+			[
+				"Vegas",
+				"Scale"
+			],
+			"result": "vegas-plus-scale"
+		}
+	],
+	"samples": 
+	[
+		"vegas-plus-glow",
+		"vegas-plus-scale"
+	],
+	"similarity": 
+	[
+		"Glow",
+		"TrimLine",
+		"Offset"
+	]
+}
