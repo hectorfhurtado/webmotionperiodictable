@@ -19,16 +19,13 @@
 	position: relative;
 	width:    10rem;
 	height:   14rem;
-	
 	border:   solid thin var(--line-dimmed);
-	
 	cursor:   pointer;
 }
 
 .Page_cell h2 
 {
 	margin-top: 0.5rem;
-	
 	font-size:  2.75rem;
 }
 
@@ -131,3 +128,9 @@
 }
 
 .Page_back:hover { background-color: var( --cell-hover ); }
+
+.Page_name vegas-cell {
+	display: block;
+	width:   10rem;
+	height:  100%;
+}

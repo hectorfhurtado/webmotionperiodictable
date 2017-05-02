@@ -52,8 +52,8 @@
 		const resultJson = await fetch( `page/explanations/${ cellName }.json` );
 		const result     = await resultJson.json();
 			
-		hideAllGroups();
-		fillPage( result );
+		hideAllGroups ();
+		fillPage (result);
 
 		const $pageName = $( '.Page_name', shadow );
 		$pageName.innerHTML = `<${ cellName }-cell></${ cellName }-cell>`;

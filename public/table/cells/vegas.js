@@ -18,7 +18,7 @@
 						width:    100%;
 						height:   100%;
 						overflow: hidden;
-						display:  flex;
+						display:  block;
 					}
 
 					.lines-container {
@@ -38,7 +38,7 @@
 					}
 
 					.right {
-						--right-distance: calc(100% - 2px);
+						--right-distance: calc(100% - 1.5px);
 
 						transform: translateX(var(--right-distance)) translateY(-5px) rotate(90deg);
 						transform-origin: left center;
@@ -46,15 +46,19 @@
 					}
 
 					.bottom {
-						--bottom-distance: calc(1510%);
+						position: absolute;
+						bottom:   0;
+						left:     0;
+						right:    0;
 
-						transform: translateX(100%) translateY(var(--bottom-distance)) rotate(180deg);
+						transform:        translateX(100%) rotate(180deg);
 						transform-origin: left center;
-						overflow: hidden;
+						overflow:         hidden;
 					}
 
 					.left {
-						transform: translateX(1px) translateY(1261%) rotate(270deg);
+						--left-distance: calc(100% - 1.5px);
+						transform: rotate(270deg) translateY(var(--left-distance)) translateX(-100%);
 						transform-origin: left center;
 						overflow: hidden;
 					}
@@ -71,6 +75,7 @@
 			`;
 		}
 	}
+						// transform: translateX(1px) translateY(1261%) rotate(270deg);
 
 	class VegasLine extends HTMLElement {
 		constructor()
