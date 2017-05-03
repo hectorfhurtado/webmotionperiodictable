@@ -1,0 +1,132 @@
+<template id="vegasplusscale_template">
+	<style>
+		:host {
+			display: block;
+			width:   100%;
+			height:  100%;
+		}
+
+		@keyframes rotation {
+			from { transform: rotateZ(0) }
+			to   { transform: rotateZ(1turn) }
+		}
+
+		.outer-circle
+		{
+			position:         relative;
+			overflow:         hidden;
+			width:            100%;
+			height:           100%;
+			transform-origin: center center;
+			animation:        6s rotation linear infinite;
+		}
+
+		.outer-circle > svg
+		{
+			width:            100%;
+			height:           100%;
+			fill:             none;
+			stroke:           white;
+			stroke-dasharray: 21 4;
+			stroke-width:     2;
+			stroke-linecap:   round;
+		}
+
+		.outer-circle > div
+		{
+			position:         absolute;
+			width:            13.5%;
+			height:           20px;
+			transform-origin: left center;
+			background-image: linear-gradient(90deg, transparent 70%, var(--app-backgroun-color));
+		}
+
+		.outer-circle .first-gradient
+		{
+			top:       8%;
+			left:      41.7%;
+			transform: rotateZ(-6deg);
+		}
+
+		.outer-circle .second-gradient
+		{
+			top:       23%;
+			left:      30.7%;
+			transform: rotateZ(-39deg);
+		}
+
+		.outer-circle .third-gradient
+		{
+			top:       47%;
+			left:      26.7%;
+			transform: rotateZ(-74deg);
+		}
+
+		.outer-circle .fourth-gradient
+		{
+			top:       71%;
+			left:      32.7%;
+			transform: rotateZ(-114deg);
+		}
+
+		.outer-circle .fifth-gradient
+		{
+			top:       85%;
+			left:      44%;
+			transform: rotateZ(-149deg);
+		}
+
+		.outer-circle .sixth-gradient
+		{
+			top:       83%;
+			left:      58%;
+			transform: rotateZ(173deg);
+		}
+
+		.outer-circle .seventh-gradient
+		{
+			top:       68%;
+			left:      69%;
+			transform: rotateZ(141deg);
+		}
+
+		.outer-circle .eigth-gradient
+		{
+			top:       44%;
+			left:      73%;
+			transform: rotateZ(105deg);
+		}
+
+		.outer-circle .nineth-gradient
+		{
+			top:       20%;
+			left:      67%;
+			transform: rotateZ(64deg);
+		}
+
+		.outer-circle .tenth-gradient
+		{
+			top:       5%;
+			left:      56%;
+			transform: rotateZ(31deg);
+		}
+
+	</style>
+	<div class="outer-circle">
+		<svg viewBox="0 0 100 100" class="outer-circle">
+			<g>
+				<circle cx="50" cy="50" r="40"></circle>
+			</g>
+		</svg>
+		<div class="first-gradient"></div>
+		<div class="second-gradient"></div>
+		<div class="third-gradient"></div>
+		<div class="fourth-gradient"></div>
+		<div class="fifth-gradient"></div>
+		<div class="sixth-gradient"></div>
+		<div class="seventh-gradient"></div>
+		<div class="eigth-gradient"></div>
+		<div class="nineth-gradient"></div>
+		<div class="tenth-gradient"></div>
+	</div>
+</template>
