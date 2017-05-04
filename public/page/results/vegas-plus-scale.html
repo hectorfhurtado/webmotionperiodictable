@@ -8,125 +8,214 @@
 
 		@keyframes rotation {
 			from { transform: rotateZ(0) }
-			to   { transform: rotateZ(1turn) }
+			to   { transform: rotateZ(-1turn) }
 		}
 
-		.outer-circle
+		.outer-circle,
+		.second-circle
 		{
 			position:         relative;
 			overflow:         hidden;
 			width:            100%;
 			height:           100%;
 			transform-origin: center center;
-			animation:        6s rotation linear infinite;
+		}
+
+		.outer-circle {
+			animation: 6s rotation linear infinite;
+		}
+
+		.outer-circle > svg,
+		.second-circle > svg
+		{
+			width:          100%;
+			height:         100%;
+			fill:           none;
+			stroke:         white;
+			stroke-linecap: round;
 		}
 
 		.outer-circle > svg
 		{
-			width:            100%;
-			height:           100%;
-			fill:             none;
-			stroke:           white;
 			stroke-dasharray: 21 4;
 			stroke-width:     2;
-			stroke-linecap:   round;
 		}
 
-		.outer-circle > div
+		.outer-circle rect
 		{
-			position:         absolute;
-			width:            13.5%;
-			height:           20px;
+			width:  25%;
+			height: 10%;
 			transform-origin: left center;
-			background-image: linear-gradient(90deg, transparent 70%, var(--app-backgroun-color));
+			fill: url(#fade-gradient);
 		}
 
-		.outer-circle .first-gradient
+		.outer-circle #first-fade
 		{
-			top:       8%;
-			left:      41.7%;
-			transform: rotateZ(-6deg);
+			x:         15;
+			y:         22;
+			transform: rotate(-38deg);
 		}
 
-		.outer-circle .second-gradient
+		.outer-circle #second-fade
 		{
-			top:       23%;
-			left:      30.7%;
-			transform: rotateZ(-39deg);
+			x:         7;
+			y:         47;
+			transform: rotate(-73deg);
 		}
 
-		.outer-circle .third-gradient
+		.outer-circle #third-fade
 		{
-			top:       47%;
-			left:      26.7%;
-			transform: rotateZ(-74deg);
+			x:         19;
+			y:         71;
+			transform: rotate(-115deg);
 		}
 
-		.outer-circle .fourth-gradient
+		.outer-circle #fourth-fade
 		{
-			top:       71%;
-			left:      32.7%;
-			transform: rotateZ(-114deg);
+			x:         40;
+			y:         84;
+			transform: rotate(-148deg);
 		}
 
-		.outer-circle .fifth-gradient
+		.outer-circle #fifth-fade
 		{
-			top:       85%;
-			left:      44%;
-			transform: rotateZ(-149deg);
+			x:         65;
+			y:         83;
+			transform: rotate(177deg);
 		}
 
-		.outer-circle .sixth-gradient
+		.outer-circle #sixth-fade
 		{
-			top:       83%;
-			left:      58%;
-			transform: rotateZ(173deg);
+			x:         85;
+			y:         67;
+			transform: rotate(144deg);
 		}
 
-		.outer-circle .seventh-gradient
+		.outer-circle #seventh-fade
 		{
-			top:       68%;
-			left:      69%;
-			transform: rotateZ(141deg);
+			x:         90;
+			y:         42;
+			transform: rotate(100deg);
 		}
 
-		.outer-circle .eigth-gradient
+		.outer-circle #eigth-fade
 		{
-			top:       44%;
-			left:      73%;
-			transform: rotateZ(105deg);
+			x:         81;
+			y:         19;
+			transform: rotate(63deg);
 		}
 
-		.outer-circle .nineth-gradient
+		.outer-circle #nineth-fade
 		{
-			top:       20%;
-			left:      67%;
-			transform: rotateZ(64deg);
+			x:         59;
+			y:         6;
+			transform: rotate(27deg);
 		}
 
-		.outer-circle .tenth-gradient
+		
+		.second-circle
 		{
-			top:       5%;
-			left:      56%;
-			transform: rotateZ(31deg);
+			position: absolute;
+			top:      0;
+			animation: 3s rotation reverse infinite linear;
+		}
+
+		.second-circle > svg
+		{
+			position: relative;
+			stroke-dasharray: 39 5;
+			stroke-width:     2;
+		}
+
+		.second-circle rect
+		{
+			width:  41%;
+			height: 12%;
+			stroke: none;
+			transform-origin: left center;
+			fill: url(#fade-gradient-second);
+		}
+
+		.second-circle #first-fade
+		{
+			x:         52;
+			y:         5;
+			transform: rotate(150deg);
+		}
+
+		.second-circle #second-fade
+		{
+			x:         15;
+			y:         28;
+			transform: rotate(85deg);
+		}
+
+		.second-circle #third-fade
+		{
+			x:         24;
+			y:         72;
+			transform: rotate(10deg);
+		}
+
+		.second-circle #fourth-fade
+		{
+			width:     46%;
+			x:         66;
+			y:         78;
+			transform: rotate(-60deg);
+		}
+
+		.second-circle #fifth-fade
+		{
+			x:         86;
+			y:         34;
+			transform: rotate(-138deg);
 		}
 
 	</style>
 	<div class="outer-circle">
 		<svg viewBox="0 0 100 100" class="outer-circle">
+			<defs>
+				<linearGradient id="fade-gradient">
+					<stop offset="70%" stop-color="hsla(0, 2%, 27%, 0)"></stop>
+					<stop offset="100%" stop-color="hsla(0, 2%, 27%, 1)"></stop>
+				</linearGradient>
+			</defs>
 			<g>
 				<circle cx="50" cy="50" r="40"></circle>
 			</g>
+			<g stroke="none">
+				<rect x="34" y="6" width="25" height="10" transform="rotate(-4, 34, 3)" fill="url(#fade-gradient)"></rect>
+				<rect id="first-fade"></rect>
+				<rect id="second-fade"></rect>
+				<rect id="third-fade"></rect>
+				<rect id="fourth-fade"></rect>
+				<rect id="fifth-fade"></rect>
+				<rect id="sixth-fade"></rect>
+				<rect id="seventh-fade"></rect>
+				<rect id="eigth-fade"></rect>
+				<rect id="nineth-fade"></rect>
+			</g>
 		</svg>
-		<div class="first-gradient"></div>
-		<div class="second-gradient"></div>
-		<div class="third-gradient"></div>
-		<div class="fourth-gradient"></div>
-		<div class="fifth-gradient"></div>
-		<div class="sixth-gradient"></div>
-		<div class="seventh-gradient"></div>
-		<div class="eigth-gradient"></div>
-		<div class="nineth-gradient"></div>
-		<div class="tenth-gradient"></div>
+	</div>
+	<div class="second-circle">
+		<svg viewBox="0 0 100 100">
+			<defs>
+				<linearGradient id="fade-gradient-second">
+					<stop offset="50%" stop-color="hsla(0, 2%, 100%, 1)"></stop>
+					<stop offset="100%" stop-color="hsla(0, 2%, 100%, 0)"></stop>
+				</linearGradient>
+				<mask id="motor-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+					<rect id="first-fade"></rect>
+					<rect id="second-fade"></rect>
+					<rect id="third-fade"></rect>
+					<rect id="fourth-fade"></rect>
+					<rect id="fifth-fade"></rect>
+				</mask>
+			</defs>
+			<g>
+				<circle cx="50" cy="50" r="36" mask="url(#motor-mask)"></circle>
+			</g>
+		</svg>
 	</div>
 </template>
