@@ -12,7 +12,9 @@
 		}
 
 		.outer-circle,
-		.second-circle
+		.second-circle,
+		.third-circle,
+		.fourth-circle
 		{
 			position:         relative;
 			overflow:         hidden;
@@ -26,7 +28,9 @@
 		}
 
 		.outer-circle > svg,
-		.second-circle > svg
+		.second-circle > svg,
+		.third-circle > svg,
+		.fourth-circle > svg
 		{
 			width:          100%;
 			height:         100%;
@@ -117,7 +121,7 @@
 		{
 			position: absolute;
 			top:      0;
-			animation: 3s rotation reverse infinite linear;
+			animation: 2s rotation reverse infinite linear;
 		}
 
 		.second-circle > svg
@@ -172,6 +176,113 @@
 			transform: rotate(-138deg);
 		}
 
+
+
+		.third-circle
+		{
+			position: absolute;
+			top:      0;
+			animation: 3.3s rotation reverse infinite linear;
+		}
+
+		.third-circle > svg
+		{
+			position:         relative;
+			stroke-dasharray: 24 12;
+			stroke-width:     7px;
+		}
+
+		.third-circle rect
+		{
+			width:  33%;
+			height: 12%;
+			stroke: none;
+			transform-origin: left center;
+			fill: url(#fade-gradient-third);
+		}
+
+		.third-circle #first-fade
+		{
+			x: 44;
+			y: 11;
+			transform: rotate(137deg);
+		}
+
+		.third-circle #second-fade
+		{
+			x: 17;
+			y: 38;
+			transform: rotate(71deg);
+		}
+
+		.third-circle #third-fade
+		{
+			x: 33;
+			y: 72;
+			transform: rotate(0deg);
+		}
+
+		.third-circle #fourth-fade
+		{
+			x: 69;
+			y: 68;
+			transform: rotate(-68deg);
+			width: 40%;
+			height: 16%;
+		}
+
+		.third-circle #fifth-fade
+		{
+			x: 78;
+			y: 28;
+			transform: rotate(-150deg);
+		}
+
+
+		.fourth-circle
+		{
+			position: absolute;
+			top:      0;
+			/*animation: 3.3s rotation reverse infinite linear;*/
+		}
+
+		.fourth-circle > svg
+		{
+			position:         relative;
+			stroke-dasharray: 5 12;
+			stroke-width: 1px;
+		}
+
+		.fourth-circle rect
+		{
+			width:  10%;
+			height: 12%;
+			stroke: none;
+			transform-origin: left center;
+			fill: url(#fade-gradient-fourth);
+		}
+
+		.fourth-circle #first-fade
+		{
+			x: 53;
+			y: 21;
+			transform: rotate(15deg);
+		}
+
+		.fourth-circle #second-fade
+		{
+			x: 68;
+			y: 29;
+			transform: rotate(52deg);
+		}
+
+		.fourth-circle #third-fade
+		{
+			x: 74;
+			y: 42;
+			transform: rotate(104deg);
+		}
+
 	</style>
 	<div class="outer-circle">
 		<svg viewBox="0 0 100 100" class="outer-circle">
@@ -215,6 +326,51 @@
 			</defs>
 			<g>
 				<circle cx="50" cy="50" r="36" mask="url(#motor-mask)"></circle>
+			</g>
+		</svg>
+	</div>
+	<div class="third-circle">
+		<svg viewBox="0 0 100 100">
+			<defs>
+				<linearGradient id="fade-gradient-third">
+					<stop offset="30%" stop-color="hsla(0, 2%, 100%, 1)"></stop>
+					<stop offset="60%" stop-color="hsla(0, 2%, 100%, 0.2)"></stop>
+					<stop offset="80%" stop-color="hsla(0, 2%, 100%, 0)"></stop>
+				</linearGradient>
+				<filter id="blur-third">
+					<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+				</filter>
+				<mask id="motor-mask-third" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+					<rect id="first-fade"></rect>
+					<rect id="second-fade"></rect>
+					<rect id="third-fade"></rect>
+					<rect id="fourth-fade"></rect>
+					<rect id="fifth-fade"></rect>
+				</mask>
+			</defs>
+			<g>
+				<circle cx="50" cy="50" r="30" mask="url(#motor-mask-third)" filter="url(#blur-third)"></circle>
+			</g>
+		</svg>
+	</div>
+	<div class="fourth-circle">
+		<svg viewBox="0 0 100 100">
+			<defs>
+				<linearGradient id="fade-gradient-fourth">
+					<stop offset="30%" stop-color="hsla(0, 2%, 100%, 1)"></stop>
+					<stop offset="100%" stop-color="hsla(0, 2%, 100%, 0)"></stop>
+				</linearGradient>
+				<mask id="motor-mask-fourth" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+					<rect id="first-fade"></rect>
+					<rect id="second-fade"></rect>
+					<rect id="third-fade"></rect>
+				</mask>
+			</defs>
+			<g>
+				<circle cx="50" cy="50" r="24" mask="url(#motor-mask-fourth)"></circle>
+				<!--<circle cx="50" cy="50" r="24"></circle>-->
+					<rect id="fourth-fade"></rect>
+					<rect id="fifth-fade"></rect>
 			</g>
 		</svg>
 	</div>
