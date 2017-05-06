@@ -13,7 +13,7 @@
 		{
 			super();
 
-			let shadow           = this.attachShadow({ mode: 'open' });
+			let shadow          = this.attachShadow({ mode: 'open' });
 			const $tableTemplate = $( '#Table-template' );
 
 			shadow.appendChild( document.importNode( $tableTemplate.content, true ));
@@ -34,8 +34,6 @@
 	 */
 	async function loadCells( name )
 	{
-		console.log( name )
-
 		const module = name.toLowerCase();
 		await Nando.load({ path: `table/cells/${ module }` });
 	}
@@ -46,13 +44,10 @@
 	 */
 	function cellClickEventHandler( event )
 	{
-		if (event.target && /-cell/i.test( event.target.tagName ))
-		{
-			const cellName    = event.target.tagName.toLowerCase().replace( '-cell', '' );
-			const customEvent = new CustomEvent( 'cellClicked', { detail: { cellName }, composed: true });
+		const cellName    = event.target.tagName.toLowerCase().replace( '-cell', '' );
+		const customEvent = new CustomEvent( 'cellClicked', { detail: { cellName }, composed: true });
 
-			this.dispatchEvent( customEvent );
-		}
+		this.dispatchEvent( customEvent );
 	}
 
 	customElements.define( 'motion-table', Table );
