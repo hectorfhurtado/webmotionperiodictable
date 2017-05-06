@@ -143,6 +143,7 @@
 {
 	grid-column: 14;
 	grid-row: 3;
+	border-left: solid thin var(--line-dimmed);
 }
 
 .Table_cell.SymmetricMove
@@ -173,6 +174,7 @@
 {
 	grid-column: 1;
 	grid-row: 4;
+	border-left: solid thin var(--line-dimmed);
 }
 
 .Table_cell.RepeatTransform
@@ -277,6 +279,240 @@
 	grid-row: 4;
 }
 
+.Table_cell.Tiler 
+{
+	grid-column: 1;
+	grid-row: 5;
+	border-left: solid thin var(--line-dimmed);
+}
 
+.Table_cell.Shadow 
+{
+	grid-column: 2;
+	grid-row: 5;
+}
+
+.Table_cell.StepTime 
+{
+	grid-column: 3;
+	grid-row: 5;
+}
+
+.Table_cell.AudioWave 
+{
+	grid-column: 4;
+	grid-row: 5;
+}
+
+.Table_cell.Particle 
+{
+	grid-column: 5;
+	grid-row: 5;
+}
+
+.Table_cell.Shatter 
+{
+	grid-column: 6;
+	grid-row: 5;
+}
+
+.Table_cell.Slide 
+{
+	grid-column: 7;
+	grid-row: 5;
+}
+
+.Table_cell.Blind 
+{
+	grid-column: 8;
+	grid-row: 5;
+}
+
+.Table_cell.Random 
+{
+	grid-column: 9;
+	grid-row: 5;
+}
+
+.Table_cell.WaveWarp 
+{
+	grid-column: 10;
+	grid-row: 5;
+}
+
+.Table_cell.Median 
+{
+	grid-column: 11;
+	grid-row: 5;
+}
+
+.Table_cell.Flare 
+{
+	grid-column: 12;
+	grid-row: 5;
+}
+
+.Table_cell.Glow 
+{
+	grid-column: 13;
+	grid-row: 5;
+}
+
+.Table_cell.WiggleMove 
+{
+	grid-column: 14;
+	grid-row: 5;
+}
+
+.Table_cell.WiggleRotate 
+{
+	grid-column: 15;
+	grid-row: 5;
+}
+
+.Table_cell.WiggleScale 
+{
+	grid-column: 16;
+	grid-row: 5;
+}
+
+.Table_cell.TrimPie 
+{
+	grid-column: 17;
+	grid-row: 5;
+}
+
+.Table_cell.WigglePath 
+{
+	grid-column: 18;
+	grid-row: 5;
+}
+
+.Table_cell.PolarCoordinates
+{
+	grid-column: 1;
+	grid-row: 6;
+	border-left: solid thin var(--line-dimmed);
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Reshape
+{
+	grid-column: 2;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.TimeDistance
+{
+	grid-column: 3;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Wave
+{
+	grid-column: 4;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Grid
+{
+	grid-column: 5;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.CardDance
+{
+	grid-column: 6;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.FindEdges
+{
+	grid-column: 7;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.LineSweep
+{
+	grid-column: 8;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Sin
+{
+	grid-column: 9;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Twirl
+{
+	grid-column: 10;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Mosaic
+{
+	grid-column: 11;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.CrossBlur
+{
+	grid-column: 12;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.ZoomBlur
+{
+	grid-column: 13;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Delay
+{
+	grid-column: 14;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.SolidRotation
+{
+	grid-column: 15;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Dot
+{
+	grid-column: 16;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.FlowingLine
+{
+	grid-column: 17;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
+
+.Table_cell.Thunder
+{
+	grid-column: 18;
+	grid-row: 6;
+	border-bottom: solid thin var(--line-dimmed);
+}
 
 
