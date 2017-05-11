@@ -1,21 +1,22 @@
-(function ()
+// @ts-check
+export default (function ()
 {
-	class Orbit extends HTMLElement {
-
-		constructor()
+	class Orbit extends HTMLElement
+	{
+		constructor ()
 		{
-			super();
+			super ();
 
-			this.attachShadow({ mode: 'open' });
+			this.attachShadow ({ mode: 'open' });
 		}
 
-		connectedCallback()
+		connectedCallback ()
 		{
-			const { width } = this.parentNode.getBoundingClientRect();
+			const { width } = this.parentNode.getBoundingClientRect ();
 
 			this.shadowRoot.innerHTML =
 			`
-			${ insertStyles() }
+			${ insertStyles () }
 			<div class="Cell_canvas">
 				<div 
 					class="Orbit_outer_circle"
@@ -26,7 +27,7 @@
 			<cell-title>Orbit</cell-title>
 			`;
 
-			animate( this.shadowRoot.querySelector( '.Orbit_outer_circle' ));
+			animate (this.shadowRoot.querySelector ('.Orbit_outer_circle'));
 		}
 	}
 
@@ -34,7 +35,7 @@
 	 * I first tested this styles on the CSS file, then write them down here.
 	 * When WebComponents kick in this can be a good practice, right?
 	 */
-	function insertStyles()
+	function insertStyles ()
 	{
 		const INNER_CIRCLE_DIAMETER = '25%';
 
@@ -84,9 +85,10 @@
 	 * We rotate passed element every 3 seconds
 	 * @param	{Object}	$outerCircle
 	 */
-	function animate( $outerCircle )
+	function animate ($outerCircle)
 	{
-		$outerCircle.animate([
+		$outerCircle.animate (
+		[
 			{ transform: 'rotate( 0turn )', offset: 0 },
 			{ transform: 'rotate( 1turn )', offset: 1 },
 		],
@@ -96,5 +98,5 @@
 		});
 	}
 
-	customElements.define( 'orbit-cell', Orbit );
+	customElements.define ('orbit-cell', Orbit);
 })();

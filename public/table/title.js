@@ -1,14 +1,15 @@
-(function ()
+// @ts-check
+export default (function ()
 {
 	// let shadow = null;
 
 	class Title extends HTMLElement 
 	{
-		constructor()
+		constructor ()
 		{
-			super();
+			super ();
 
-			this.shadow = this.attachShadow({ mode: 'open' });
+			this.shadow = this.attachShadow ({ mode: 'open' });
 
 			this.shadow.innerHTML = 
 			`
@@ -45,14 +46,14 @@
 
 		}
 
-		connectedCallback()
+		connectedCallback ()
 		{
-			const $h2       = this.shadow.querySelector( 'h2' );
-			const { width } = $h2.getBoundingClientRect();
+			const $h2       = this.shadow.querySelector ('h2');
+			const { width } = $h2.getBoundingClientRect ();
 
-			if (width > 70) $h2.classList.add( 'bigger' );
+			if (width > 70) $h2.classList.add ('bigger');
 		}
 	}
 
-	customElements.define( 'cell-title', Title );
+	customElements.define ('cell-title', Title);
 })();

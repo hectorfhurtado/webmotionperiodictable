@@ -1,61 +1,67 @@
-(function ()
+// @ts-check
+import { $, $$ } from '../app/utils.js';
+
+import orbitPlusScale from './results/orbit-plus-scale.js';
+import orbitPlusSin from './results/orbit-plus-sin.js';
+
+export default (function ()
 {
 	let shadow = null;
 
-	class Page extends HTMLElement {
-
-		constructor()
+	class Page extends HTMLElement
+	{
+		constructor ()
 		{
-			super();
+			super ();
 
-			console.log( 'Page#init' );
+			console.log ('Page#init');
 
-			shadow              = this.attachShadow({ mode: 'open' });
-			const $pageTemplate = $( '#Page-template' );
+			shadow              = this.attachShadow ({ mode: 'open' });
+			const $pageTemplate = $ ('#Page-template');
 
-			shadow.appendChild( document.importNode( $pageTemplate.content, true ));
-			$pageTemplate.parentNode.removeChild( $pageTemplate );
+			shadow.appendChild (document.importNode( $pageTemplate.content, true));
+			$pageTemplate.parentNode.removeChild ($pageTemplate);
 		}
 
-		static get observedAttributes()
+		static get observedAttributes ()
 		{
 			return [ 'show' ];
 		}
 
-		attributeChangedCallback( name, oldValue, newValue ) 
+		attributeChangedCallback (name, oldValue, newValue) 
 		{
 			if (name == 'show' && newValue)
 			{
-				window.scroll( 0, 0 );
-				show({ cellName: newValue });
+				window.scroll (0, 0);
+				show ({ cellName: newValue });
 			}
 		}
 
-		connectedCallback()
+		connectedCallback ()
 		{
-			$( '.Page_back', shadow ).addEventListener( 'click', pageBackClickHandler, true );
-			shadow.addEventListener( 'click', pageClickHandler, true );
+			$ ('.Page_back', shadow).addEventListener ('click', pageBackClickHandler, true);
+			shadow.addEventListener ('click', pageClickHandler, true);
 		}
 	}
 
 	/**
 	 * We fetch JSON information for clicked cell and start position received information on screen
 	 */
-	async function show({ cellName })
+	async function show ({ cellName })
 	{
-		if ($( '.Page .Page_title', shadow ).textContent == cellName)
+		if ($ ('.Page .Page_title', shadow).textContent == cellName)
 		{
-			revealAllGroups();
+			revealAllGroups ();
 			return null;
 		}
 
-		const resultJson = await fetch( `page/explanations/${ cellName }.json` );
-		const result     = await resultJson.json();
+		const resultJson = await fetch (`page/explanations/${ cellName }.json`);
+		const result     = await resultJson.json ();
 			
 		hideAllGroups ();
 		fillPage (result);
 
-		const $pageName = $( '.Page_name', shadow );
+		const $pageName = $ ('.Page_name', shadow);
 		$pageName.innerHTML = `<${ cellName }-cell></${ cellName }-cell>`;
 	}
 
@@ -63,33 +69,33 @@
 	 * Fills the page woth information obtained from server
 	 * @param	{Object}	information
 	 */
-	function fillPage( information )
+	function fillPage (information)
 	{
 		const { title, description, createMethod, application, samples, similar } = information;
 
-		$( '.Page_title', shadow ).innerHTML        = title;
-		$( '.Page_description', shadow ).innerHTML  = description.map( line => `<p>${ line }</p>` ).join( '' );
-		$( '.Page_createMethod', shadow ).innerHTML = createMethod.map( line => `<p>${ line }</p>` ).join( '' );
+		$ ('.Page_title', shadow).innerHTML        = title;
+		$ ('.Page_description', shadow).innerHTML  = description.map (line => `<p>${ line }</p>`).join ('');
+		$ ('.Page_createMethod', shadow).innerHTML = createMethod.map (line => `<p>${ line }</p>`).join ('');
 
-		loadSamples( samples );
-		renderApplication( application );
-		renderSamples( samples );
-		renderSimilar( similar );
+		// loadSamples (samples);
+		renderApplication (application);
+		renderSamples (samples);
+		renderSimilar (similar);
 
-		revealAllGroups();
+		revealAllGroups ();
 	}
 
-	async function loadSamples( samples )
+	// async function loadSamples (samples)
+	// {
+	// 	await samples.map( sample => Nando.load({ path: `page/results/${ sample }` }));
+	// }
+
+	function hideAllGroups ()
 	{
-		await samples.map( sample => Nando.load({ path: `page/results/${ sample }` }));
+		$$ ('.Page_group', shadow).forEach ($pageGroup => $pageGroup.style.opacity = 0);
 	}
 
-	function hideAllGroups()
-	{
-		$$( '.Page_group', shadow ).forEach( $pageGroup => $pageGroup.style.opacity = 0 );
-	}
-
-	function revealAllGroups()
+	function revealAllGroups ()
 	{
 		const properties =
 		[
@@ -104,11 +110,11 @@
 			duration: 300,
 		};
 
-		$$( '.Page_group', shadow ).forEach(( $pageGroup, index ) =>
+		$$ ('.Page_group', shadow).forEach (($pageGroup, index) =>
 		{
 			options.delay = 300 * index;
 
-			$pageGroup.animate( properties, options );
+			$pageGroup.animate (properties, options);
 		});
 	}
 
@@ -116,14 +122,14 @@
 	 * Renders the application part of the information Object
 	 * @param	{Object}	application
 	 */
-	function renderApplication( application )
+	function renderApplication (application)
 	{
-		$( '.Page_application', shadow ).innerHTML = application.map( function (app)
+		$ ('.Page_application', shadow).innerHTML = application.map (function (app)
 		{
 			let markup = `
 				<p>${ app.description }</p>
 				<div class="Page_application_cells horizontal">
-					${ inserPageCells( app.cells ) }
+					${ inserPageCells (app.cells) }
 					<div class="plus">&#9658;</div>
 					<div class="Page_result ${ app.result }">
 						<${ app.result }></${ app.result }>
@@ -131,7 +137,7 @@
 				</div>`;
 
 			return markup;
-		}).join( '' );
+		}).join ('');
 	}
 
 	/**
@@ -139,31 +145,31 @@
 	 * @param	{Array}	cells
 	 * @returns	String
 	 */
-	function inserPageCells( cells )
+	function inserPageCells (cells)
 	{
 		return cells
-			.map( cellName => 
+			.map (cellName => 
 			`<div class="Page_cell ${ cellName }">
 				<${ cellName }-cell></${ cellName }-cell>
 			</div>
 			` )
-			.join( '<div class="plus">+</div>' );
+			.join ('<div class="plus">+</div>');
 	}
 
-	function renderSamples( samples )
+	function renderSamples (samples)
 	{
-		$( '.Page_samples', shadow ).innerHTML = samples
-			.reduce(( previousCell, currentCell ) => `${ previousCell }
+		$ ('.Page_samples', shadow).innerHTML = samples
+			.reduce ((previousCell, currentCell) => `${ previousCell }
 				<div class="Page_result">
 					<${ currentCell }></${ currentCell }>
 				</div>
 			`, '' );
 	}
 
-	function renderSimilar( similar )
+	function renderSimilar (similar)
 	{
-		$( '.Page_similar', shadow ).innerHTML = similar
-			.reduce(( previousCell, currentCell ) => `${ previousCell }
+		$ ('.Page_similar', shadow).innerHTML = similar
+			.reduce ((previousCell, currentCell) => `${ previousCell }
 				<div class="Page_cell">
 					<${ currentCell }-cell></${ currentCell }-cell>
 				</div>
@@ -172,21 +178,21 @@
 
 	function pageBackClickHandler ()
 	{
-		const customEvent  = new CustomEvent( 'pageBack', { composed: true });
+		const customEvent  = new CustomEvent ('pageBack', { composed: true });
 
-		this.dispatchEvent( customEvent );
-		hideAllGroups();
+		this.dispatchEvent (customEvent);
+		hideAllGroups ();
 	}
 
-	function pageClickHandler( event )
+	function pageClickHandler (event)
 	{
-		if (event.target && /-cell$/i.test( event.target.tagName ))
+		if (event.target && /-cell$/i.test (event.target.tagName))
 		{
-			const cellName = event.target.tagName.toLowerCase().replace( '-cell', '' );
+			const cellName = event.target.tagName.toLowerCase ().replace ('-cell', '');
 
-			this.host.setAttribute( 'show', cellName );
+			this.host.setAttribute ('show', cellName);
 		}
 	}
 
-	customElements.define( 'motion-page', Page ); 
+	customElements.define ('motion-page', Page); 
 })();

@@ -1,4 +1,7 @@
-(function ()
+// @ts-check
+import { $, loadTemplate } from '../../app/utils.js';
+
+export default (function ()
 {
 	let degrees = 259;
 	let adding  = false;
@@ -7,33 +10,33 @@
 
 	class OrbitPlusSin extends HTMLElement
 	{
-		constructor()
+		constructor ()
 		{
-			super();
-			console.log( 'OrbitPlusSin#constructor' );
+			super ();
+			console.log ('OrbitPlusSin#constructor');
 
-			let shadow = this.attachShadow({ mode: 'open' });
+			let shadow = this.attachShadow ({ mode: 'open' });
 
-			appendTemplate( shadow );
+			appendTemplate (shadow);
 		}
 	}
 
-	async function appendTemplate( shadow ) 
+	async function appendTemplate (shadow) 
 	{
-		await Nando.loadTemplate({ path: 'page/results/orbit-plus-sin' });
+		await loadTemplate ({ path: 'page/results/orbit-plus-sin' });
 		
-		const $template = $( '#orbitplussin_template' );
-		const $clone    = document.importNode( $template.content, true );
+		const $template = $ ('#orbitplussin_template');
+		const $clone    = document.importNode ($template.content, true);
 
-		shadow.appendChild( $clone );
-		animate( shadow );
+		shadow.appendChild ($clone);
+		animate (shadow);
 	}
 
-	function animate( shadow )
+	function animate (shadow)
 	{
-		const $pendulum = $( '.OrbitPlusSin_pendulum', shadow );
+		const $pendulum = $ ('.OrbitPlusSin_pendulum', shadow);
 
-		const animation = $pendulum.animate(
+		const animation = $pendulum.animate (
 		[
 			{ 'transform': 'rotate( 0 )' },
 			{ 'transform': 'rotate( -158deg )' },
@@ -45,7 +48,7 @@
 			direction: 'alternate',
 		});
 
-		showDegress( shadow, animation );
+		showDegress (shadow, animation);
 	}
 
 	/**
@@ -53,21 +56,21 @@
 	 * @param	{DOMElement}	$context
 	 * @param	{Object}		animation
 	 */
-	function showDegress( $context, animation )
+	function showDegress ($context, animation)
 	{
 		const currentPlayedTime = animation.currentTime % 2000; 
-		const currentInSeconds = currentPlayedTime / 1000;
+		const currentInSeconds  = currentPlayedTime / 1000;
 
 		if (currentInSeconds < 1)
-			$( '.OrbitPlusSin_label', $context ).textContent = `${ 100 + 159 * currentInSeconds | 0 }°`;
+			$ ('.OrbitPlusSin_label', $context).textContent = `${ 100 + 159 * currentInSeconds | 0 }°`;
 		else
 		{
 			const correction = 1 - (currentInSeconds - 1);
-			$( '.OrbitPlusSin_label', $context ).textContent = `${ 100 + 159 * correction | 0 }°`;
+			$ ('.OrbitPlusSin_label', $context).textContent = `${ 100 + 159 * correction | 0 }°`;
 		}
 
-		requestAnimationFrame( showDegress.bind( null, $context, animation ));
+		requestAnimationFrame (showDegress.bind (null, $context, animation));
 	}
 
-	customElements.define( 'orbit-plus-sin', OrbitPlusSin );
+	customElements.define ('orbit-plus-sin', OrbitPlusSin);
 })();
