@@ -12,20 +12,18 @@ export default (function ()
 
 		connectedCallback ()
 		{
-			const { width } = this.parentNode.getBoundingClientRect ();
+			const { width } = this.parentElement.getBoundingClientRect ();
 
 			this.shadowRoot.innerHTML =
-			`
-			${ insertStyles () }
-			<div class="Cell_canvas">
-				<div 
-					class="Orbit_outer_circle"
-					style="height: ${ width * 0.6 }px; width: ${ width * 0.6 }px;"
-				>
+				`
+				${ insertStyles () }
+				<cell-title>Orbit</cell-title>
+				<div class="Cell_canvas">
+					<div
+						class="Orbit_outer_circle">
+					</div>
 				</div>
-			</div>
-			<cell-title>Orbit</cell-title>
-			`;
+				`;
 
 			animate (this.shadowRoot.querySelector ('.Orbit_outer_circle'));
 		}
@@ -39,44 +37,43 @@ export default (function ()
 	{
 		const INNER_CIRCLE_DIAMETER = '25%';
 
+		// TODO: rework on this. Use SVG
 		const styles =
-		`
-		<style>
-			:host {
-				width:    100%;
-				height:   100%;
-				display:  block;
-				position: absolute;
-				top:      0;
-				bottom:   0;
-				left:     0;
-				right:    0;
-			}
-			.Orbit_outer_circle
-			{
-				border:        solid thin var( --line-dimmed );
-				border-radius: 50%;
-				margin:        20%;
-				position:      absolute;
-				bottom:        0.125rem;
-				left:          0;
-				right:         0;
-				user-select:   none;
-			}
+			`
+			<style>
+				:host {
+					width:    100%;
+					height:   100%;
+					display:  block;
+					position: relative;
+				}
+				.Orbit_outer_circle
+				{
+					border:        solid thin var( --line-dimmed );
+					border-radius: 50%;
+					margin:        20%;
+					position:      absolute;
+					bottom:        0.125rem;
+					left:          0;
+					right:         0;
+					user-select:   none;
+					width:         60%;
+					height:        43%;
+				}
 
-			.Orbit_outer_circle:after
-			{
-				content:          '';
-				display:          block;
-				width:            ${ INNER_CIRCLE_DIAMETER };
-				height:           ${ INNER_CIRCLE_DIAMETER };
-				border-radius:    50%;
-				background-color: var( --app-color );
-				transform-origin: center;
-				transform:        translate( 340%, 150% );
-			}
-		</style>
-		`;
+				.Orbit_outer_circle:after
+				{
+					content:          '';
+					display:          block;
+					width:            ${ INNER_CIRCLE_DIAMETER };
+					height:           ${ INNER_CIRCLE_DIAMETER };
+					border-radius:    50%;
+					background-color: var( --app-color );
+					transform-origin: center;
+					transform:        translate( 340%, 150% );
+				}
+			</style>
+			`;
 
 		return styles;
 	}
@@ -93,7 +90,7 @@ export default (function ()
 			{ transform: 'rotate( 1turn )', offset: 1 },
 		],
 		{
-			duration: 3000,
+			duration:   3000,
 			iterations: Infinity,
 		});
 	}

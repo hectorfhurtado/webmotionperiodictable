@@ -1,64 +1,64 @@
-(function ()
+// @ts-check
+export default (function ()
 {
 	class Offset extends HTMLElement 
 	{
-		constructor()
+		constructor ()
 		{
-			super();
+			super ();
 
-			let shadow = this.attachShadow({ mode: 'open' });
+			let shadow = this.attachShadow ({ mode: 'open' });
 
-			appendTo( shadow );
+			appendTo (shadow);
 		}
 	}
 
-	function appendTo( $container )
+	function appendTo ($container)
 	{
-		console.log( 'Offset#appendTo' );
+		console.log ('Offset#appendTo');
 
 		$container.innerHTML =
 		`
-		${ insertStyles() }
-		<div class="Cell_canvas">
-			${ insertHexagon() }
-		</div>
-		<cell-title>Offset</cell-title>
+			${ insertStyles () }
+			<cell-title>Offset</cell-title>
+			<div class="Cell_canvas">
+				${ insertHexagon () }
+			</div>
 		`;
 
-		animate( $container.querySelector( '.Offset_hexagon' ));
+		animate ($container.querySelector( '.Offset_hexagon'));
 	}
 
-	function insertStyles()
+	function insertStyles ()
 	{
 		const styles =
 		`
-		<style>
-			.Offset_hexagon {
-				margin-top:       20%;
-				fill:             none;
-				stroke:           var( --app-color );
-				stroke-width:     8;
-				stroke-dasharray: 40;
-				stroke-linecap:   round;
-				stroke-linejoin:  round;
-				transform:        translateY(15%) scale(0.8);
-			}
-		</style>
+			<style>
+				.Offset_hexagon {
+					fill:             none;
+					stroke:           var( --app-color );
+					stroke-width:     8;
+					stroke-dasharray: 40;
+					stroke-linecap:   round;
+					stroke-linejoin:  round;
+					transform:        scale(0.8);
+				}
+			</style>
 		`;
 
 		return styles;
 	}
 
-	function insertHexagon()
+	function insertHexagon ()
 	{
-		const $hexagon = document.getElementById( 'HexagonSvg' );
+		const $hexagon = document.getElementById ('HexagonSvg');
 
-		return $hexagon.innerHTML.replace( '<svg', '<svg class="Offset_hexagon"' );
+		return $hexagon.innerHTML.replace ('<svg', '<svg class="Offset_hexagon"');
 	}
 
-	function animate( $hexagon )
+	function animate ($hexagon)
 	{
-		$hexagon.animate(
+		$hexagon.animate (
 		[
 			{ strokeDashoffset: 80 },
 			{ strokeDashoffset: 0 },
@@ -69,5 +69,5 @@
 		});
 	}
 
-	customElements.define( 'offset-cell', Offset );
+	customElements.define ('offset-cell', Offset);
 })();

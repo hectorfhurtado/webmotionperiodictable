@@ -1,16 +1,17 @@
-(function ()
+// @ts-check
+export default (function ()
 {
 	class Vegas extends HTMLElement
 	{
-		constructor()
+		constructor ()
 		{
-			super();
-			console.log( 'Vegas#constructor' );
+			super ();
+			console.log ('Vegas#constructor');
 
-			let shadow = this.attachShadow({ mode: 'open' });
+			let shadow = this.attachShadow ({ mode: 'open' });
 		}
 
-		connectedCallback()
+		connectedCallback ()
 		{
 			this.shadowRoot.innerHTML = `
 				<style>
@@ -24,9 +25,8 @@
 					.lines-container {
 						position:   relative;
 						margin:     auto;
-						width:      80%;
-						height:     50%;
-						margin-top: 55%;
+						width:      70%;
+						height:     40%;
 						overflow:   hidden;
 					}
 
@@ -63,6 +63,7 @@
 						overflow: hidden;
 					}
 				</style>
+				<cell-title>Vegas</cell-title>
 				<div class="Cell_canvas">
 					<div class="lines-container">
 						<vegas-line class="top"></vegas-line>
@@ -71,22 +72,21 @@
 						<vegas-line class="left"></vegas-line>
 					</div>
 				</div>
-				<cell-title>Vegas</cell-title>
 			`;
 		}
 	}
-						// transform: translateX(1px) translateY(1261%) rotate(270deg);
 
-	class VegasLine extends HTMLElement {
-		constructor()
+	class VegasLine extends HTMLElement
+	{
+		constructor ()
 		{
-			super();
-			console.log( 'VegasLine#constructor' );
+			super ();
+			console.log ('VegasLine#constructor');
 
-			let shadow = this.attachShadow({ mode: 'open' });
+			let shadow = this.attachShadow ({ mode: 'open' });
 		}
 
-		connectedCallback()
+		connectedCallback ()
 		{
 			this.shadowRoot.innerHTML = `
 				<style>
@@ -119,6 +119,6 @@
 		}
 	}
 
-	customElements.define( 'vegas-cell', Vegas );
-	customElements.define( 'vegas-line', VegasLine );
+	customElements.define ('vegas-cell', Vegas);
+	customElements.define ('vegas-line', VegasLine);
 })();

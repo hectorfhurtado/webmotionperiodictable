@@ -11,6 +11,10 @@ export default (function ()
 
 			this.shadow = this.attachShadow ({ mode: 'open' });
 
+					// position:         absolute;
+					// top:              0;
+					// right:            0;
+					// left:             0;
 			this.shadow.innerHTML = 
 			`
 			<style>
@@ -20,10 +24,6 @@ export default (function ()
 					font-weight:      inherit;
 					text-align:       center;
 					margin-top:       0.2rem;
-					position:         absolute;
-					top:              0;
-					right:            0;
-					left:             0;
 					-moz-user-select: none;
 					user-select:      none;
 					pointer-events:   none;
@@ -51,7 +51,12 @@ export default (function ()
 			const $h2       = this.shadow.querySelector ('h2');
 			const { width } = $h2.getBoundingClientRect ();
 
-			if (width > 70) $h2.classList.add ('bigger');
+			console.log ($h2.getBoundingClientRect ())
+
+			// setTimeout(function ()
+			// {
+			// 	if (width > 70) $h2.classList.add ('bigger');
+			// }, 2000);
 		}
 	}
 

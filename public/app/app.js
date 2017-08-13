@@ -1,8 +1,8 @@
 // @ts-check
 import { $ } from './utils.js';
 
-import table from '../table/table.js';
 import title from '../table/title.js';
+import table from '../table/table.js';
 import page from  '../page/page.js';
 
 export default (function ()
@@ -17,25 +17,26 @@ export default (function ()
 
 			shadow = this.attachShadow ({ mode: 'open' });
 
-			shadow.innerHTML = `
-				<motion-table style="height: 100%;"></motion-table>
-				<motion-page style="display: none;"></motion-page>
-			`;
+			shadow.innerHTML =
+				`
+					<motion-table style="height: 100%;"></motion-table>
+					<motion-page style="display: none;"></motion-page>
+				`;
 
-			this.init ();
+			init.bind (this)();
 		}
+	}
 
-		/**
-		 * We load al main two components
-		 * Add an event listener for the custom event on table to load information on Page
-		 */
-		init ()
-		{
-			console.log ('App#init');
+	/**
+	 * We load al main two components
+	 * Add an event listener for the custom event on table to load information on Page
+	 */
+	function init ()
+	{
+		console.log ('App#init');
 
-			this.addEventListener ('cellClicked', cellClickedHandler, true);
-			this.addEventListener ('pageBack', pageBackhandler, true);
-		}
+		this.addEventListener ('cellClicked', cellClickedHandler, true);
+		this.addEventListener ('pageBack', pageBackhandler, true);
 	}
 
 	/**
@@ -73,7 +74,7 @@ export default (function ()
 			{ opacity: 0 },
 		], animationProperties);
 
-		await previousAnimation.finished; 
+		await previousAnimation.finished;
 
 		$previous.style.display = 'none';
 		$next.style.display     = 'flex';

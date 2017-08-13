@@ -1,24 +1,27 @@
 // @ts-check
-import { $, $$, loadTemplate } from '../../app/utils.js';
+import { $, $$, loadTemplate as loadPath } from '../../app/utils.js';
 
 export default (function ()
 {
-	class OrbitPlusScale extends HTMLElement 
+	class OrbitPlusScale extends HTMLElement
 	{
 		constructor ()
 		{
 			super ();
 			console.log ('OrbitPlusScale#constructor');
 
-			let shadow = this.attachShadow ({ mode: 'open' });
+			this.attachShadow ({ mode: 'open' });
+		}
 
-			loadTemplate (shadow);
+		connectedCallback ()
+		{
+			loadTemplate.bind (this)(this.shadowRoot);
 		}
 	}
 
 	async function loadTemplate (shadow)
 	{
-		await loadTemplate ({ path: 'page/results/orbit-plus-scale' })
+		await loadPath ({ path: 'page/results/orbit-plus-scale' })
 
 		const $template = $ ('#orbitplusscale_template');
 		const $clone    = document.importNode ($template.content, true);
@@ -27,7 +30,7 @@ export default (function ()
 		animate (shadow);
 
 		// Needed for the DOM to settle
-		setTimeout (addScaleCircles.bind (null, shadow), 200);
+		addScaleCircles.bind (this)(shadow);
 	}
 
 	/**
@@ -35,7 +38,7 @@ export default (function ()
 	 */
 	function animate (shadow)
 	{
-		const turns = 
+		const turns =
 		[
 			{ transform: 'rotate( 0turn )' },
 			{ transform: 'rotate( 1turn )' },
@@ -71,15 +74,22 @@ export default (function ()
 		const NUMBER_OF_CIRCLES = 4;
 		const TOTAL_DURATION    = 5000;
 
-		$$ ('.OrbitPlusScale_scaled_container', shadow).forEach ($container =>
+		$$ ('.OrbitPlusScale_scaled_container', shadow).forEach (($container, index) =>
 		{
 			const { width, height } = $container.getBoundingClientRect ();
+
+			if (width === 0)
+			{
+				if (index === 0) setTimeout(addScaleCircles.bind(this, shadow), 50);
+
+				return;
+			}
 
 			for (let i = 0; i < NUMBER_OF_CIRCLES; i += 1)
 			{
 				const delay           = Math.random() * 3000;
-				const opacityMin      = Math.random() * 0.2; 
-				const scaleMin        = Math.random() * 0.3; 
+				const opacityMin      = Math.random() * 0.2;
+				const scaleMin        = Math.random() * 0.3;
 				const scaleMax        = Math.random() * 0.2 + 0.5;
 				const x               = (width * Math.random () - (width / 2)) + 'px';
 				const y               = (height * Math.random () - (width / 2)) + 'px';
@@ -90,12 +100,11 @@ export default (function ()
 				const $circle = document.createElement ('div');
 				$circle.classList.add ('OrbitPlusScale_scale_circle');
 
-				Object.assign ($circle.style, 
+				Object.assign ($circle.style,
 				{
 					left:      x,
 					top:       y,
 					opacity:   opacityMin,
-					scale:     scaleMin,
 					width:     width + 'px',
 					height:    height + 'px',
 					transform: `scale (${ scaleMin })`,
@@ -103,7 +112,7 @@ export default (function ()
 
 				if (classPosibility < 0.2)
 					$circle.classList.add ('OrbitPlusScale_scale_circle_white');
-				
+
 				if (classPosibility > 0.8)
 					$circle.classList.add ('OrbitPlusScale_scale_circle_blue');
 
@@ -129,9 +138,9 @@ export default (function ()
 
 				$circle.animate (
 				[
-					{ transform: `scale (${ scaleMin })` },
-					{ transform: `scale (${ scaleMax })`, offset: 0.7 },
-					{ transform: `scale (${ scaleMax })` },
+					{ transform: `scale(${ scaleMin })` },
+					{ transform: `scale(${ scaleMax })`, offset: 0.7 },
+					{ transform: `scale(${ scaleMax })` },
 				], animationProperties);
 			}
 		});
