@@ -3,7 +3,7 @@ export default (function ()
 {
 	// let shadow = null;
 
-	class Title extends HTMLElement 
+	class Title extends HTMLElement
 	{
 		constructor ()
 		{
@@ -11,11 +11,7 @@ export default (function ()
 
 			this.shadow = this.attachShadow ({ mode: 'open' });
 
-					// position:         absolute;
-					// top:              0;
-					// right:            0;
-					// left:             0;
-			this.shadow.innerHTML = 
+			this.shadow.innerHTML =
 			`
 			<style>
 				h2
@@ -31,10 +27,10 @@ export default (function ()
 
 				h2::first-letter { font-size: 1.5rem; }
 
-				.bigger 
-				{
-					font-size: 2.75rem;
-					margin-top: 0.5rem;
+				.bigger {
+					font-size:     2.75rem;
+					margin-top:    0;
+					margin-bottom: 0;
 				}
 
 				.bigger::first-letter { font-size: 3.75rem; }
@@ -51,12 +47,14 @@ export default (function ()
 			const $h2       = this.shadow.querySelector ('h2');
 			const { width } = $h2.getBoundingClientRect ();
 
-			console.log ($h2.getBoundingClientRect ())
+			if (width === 0 || width > 600)
+			{
+				setTimeout (this.connectedCallback.bind (this), 50);
 
-			// setTimeout(function ()
-			// {
-			// 	if (width > 70) $h2.classList.add ('bigger');
-			// }, 2000);
+				return;
+			}
+
+			if (width > 150) $h2.classList.add ('bigger');
 		}
 	}
 
